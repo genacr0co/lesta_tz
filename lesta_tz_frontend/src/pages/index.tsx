@@ -1,13 +1,14 @@
 import React from "react";
 
-import {BookList} from '@/widgets'
+import {DocsList, TableTF} from '@/widgets'
 
 const Home = () => {
     return (
         <>
             <main>
                 <div style={{margin: '0 auto', width: '100%', padding: '0 10px'}}>
-                    <BookList/>
+                    {/* <DocsList/> */}
+                    <TableTF/>
                 </div>
             </main>
         </>

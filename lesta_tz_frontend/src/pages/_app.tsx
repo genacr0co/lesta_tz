@@ -25,7 +25,7 @@ export default function App({Component, pageProps}: AppProps) {
 
     return <div>
         <Head>
-            <title>Book Store</title>
+            <title>TF IDF</title>
             <meta name="description" content="Welcome to Book Store."/>
             <meta name="keywords" content="Book Store, store, book"/>
 

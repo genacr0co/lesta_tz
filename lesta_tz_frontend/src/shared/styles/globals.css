@@ -41,7 +41,9 @@
 body {
     overflow-x: hidden;
     overflow-y: scroll;
-    background-color: #F7E7DC ;
+    /* background-color: #F7E7DC ; */
+    background-color: #f4f4f4 ;
+
 }
 
 .container {
