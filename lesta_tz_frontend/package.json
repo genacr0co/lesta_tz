@@ -1,0 +1,47 @@
+{
+  "name": "riskassessment-new-module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@types/compose-function": "^0.0.30",
+    "@types/node": "20.1.0",
+    "@types/react": "18.2.6",
+    "@types/react-beautiful-dnd": "^13.1.4",
+    "@types/react-dom": "18.2.4",
+    "@types/styled-components": "^5.1.26",
+    "@zeit/next-less": "^1.0.1",
+    "axios": "^1.4.0",
+    "compose-function": "^3.0.3",
+    "eslint": "8.40.0",
+    "eslint-config-next": "13.4.1",
+    "iconsax-react": "^0.0.8",
+    "js-cookie": "^3.0.5",
+    "less": "^2.7.3",
+    "mobx": "^6.9.0",
+    "mobx-react": "^7.6.0",
+    "next": "13.4.1",
+    "nextjs-progressbar": "^0.0.16",
+    "react": "18.2.0",
+    "react-cookie": "^4.1.1",
+    "react-dom": "18.2.0",
+    "react-intl": "^6.4.2",
+    "react-query": "^3.39.3",
+    "styled-components": "^5.3.10",
+    "trigger-man": "^1.0.3",
+    "typescript": "5.0.4",
+    "usehooks-ts": "^2.9.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.21.0",
+    "babel-plugin-styled-components": "^2.1.1",
+    "cross-env": "^7.0.3",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.5.0"
+  }
+}

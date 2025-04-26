@@ -1,0 +1,63 @@
+.Root {
+    width: 100%;
+    
+    padding: 32px;
+    background-color: #758694;
+    border-radius: 32px;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 500px;
+}
+
+.totalPrice {
+    width: 100%;
+    font-size: 20px;
+    color: white;
+}
+
+.totalPrice span{
+    font-weight: 900;
+}
+
+.logo {
+    /* font-size: 56px; */
+    color: white;
+    text-align: center;
+
+    font-weight: 900;
+}
+
+.filterButton {
+    font-size: 12px;
+    color: #FFF8F3;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.underline:hover {
+    text-decoration: underline;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+ 
+}
+
+.spaceBetween {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+@media (max-width: 432px) {
+    .Root {
+        padding: 18px;
+    }
+}

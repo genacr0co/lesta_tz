@@ -1,0 +1,24 @@
+.root {
+    background-color: #657a8a;
+    
+    border-radius: 20px;
+    padding: 12px 16px;
+    transition: .3s ease-in-out;
+    
+    cursor: pointer;
+
+    max-width: 436px;
+    width: 100%;
+
+    position: relative;
+}
+
+.root:hover{
+    background-color: #405D72;
+}
+
+.title {
+    font-size: 16px;
+    color: white;
+    font-weight: 900;
+}
