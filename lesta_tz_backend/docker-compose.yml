@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+      image: postgres
+      container_name: check-list-postgres
+      environment:
+        POSTGRES_USER: beerloga
+        POSTGRES_PASSWORD: beerloga123456789
+        POSTGRES_DB: check_list
+      ports:
+        - "5433:5432"
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    container_name: check-list-bot
+    ports:
+      - "8003:8000"
+    volumes:
+      - static-data:/app/static
+
+    command: >
+      sh -c "alembic upgrade head && uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload --forwarded-allow-ips=*"
+
+  redis_service:
+    image: redis
+    container_name: check-list-redis
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  static-data:
+  redis_data:

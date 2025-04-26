@@ -1,28 +1,21 @@
-## README
+## ТЗ LESTA GAMES TF IDF
 
-### Команды и их описания
 
-1. `python -m venv venv`
+здесь будет описание как запустить проект
 
-   Создает виртуальное окружение с именем `venv` для изоляции проекта от системных библиотек и зависимостей.
+Frontend часть на Next js
 
-2. `source venv/bin/activate` (для Linux) / `venv\Scripts\activate` (для Windows)
+Backend Python Fast Api
 
-   Активирует виртуальное окружение `venv`, позволяя использовать установленные в нем пакеты и избегать конфликтов с глобальными пакетами.
+<!-- alembic revision --autogenerate -m "init commit" -->
 
-3. `pip install -r requirements.txt`
+<!-- alembic upgrade head -->
 
-   Устанавливает зависимости
+<!-- uvicorn src.main:app --host 0.0.0.0 --port 8001 --reload -->
 
-   <!-- uvicorn src.main:app --host 0.0.0.0 --port 8001 --reload -->
+<!-- docker-compose up --build -d -->
 
-   <!-- alembic init alembic -->
-   <!-- alembic revision --autogenerate -m "init commit" -->
-   <!-- alembic upgrade head -->
-   <!-- uvicorn src.main:app --host 0.0.0.0 --port 8001 --reload -->
-
-   <!-- docker-compose up --build -d -->
-   <!-- RUNNER_ALLOW_RUNASROOT=true  ./run.sh -->
+<!-- RUNNER_ALLOW_RUNASROOT=true  ./run.sh -->
 
 
 <!-- 
