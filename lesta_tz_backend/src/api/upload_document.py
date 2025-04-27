@@ -92,7 +92,7 @@ async def upload(
         {
             "document_id": doc_id,
             "word_id": existing_word_map[word_text],
-            "tf": ( count / total_words),
+            "tf": round((count / total_words), 10),
             "text": word_text
         }
         for word_text, count in tf_counter.items()
