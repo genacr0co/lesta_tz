@@ -1,6 +1,18 @@
 ## README
 
+Перед запуском проекта у вас должна быть настроена СУБД `PostgreSQL`
+
+параметры которые используются в проекте для БД:
+
+`DB_HOST = localhost`
+`DB_PORT = 5432`
+`DB_NAME = tf_idf`
+`DB_USER = postgres`
+`DB_PASS = postgres`
+
 ### Команды и их описания
+
+откройте терминал в директории `/lesta_tz_backend`
 
 1. `python -m venv venv`
 
@@ -12,19 +24,9 @@
 
    Устанавливает зависимости
 
-   <!-- alembic init alembic -->uvicorn src.main:app --reload --reload-dir src --workers 1
+4.  `alembic upgrade head`
+       миграции в бд
 
+5. `uvicorn src.main:app --reload`
 
-   <!-- alembic revision --autogenerate -m "init commit" -->
-
-   <!-- alembic upgrade head -->
-
-   <!-- uvicorn src.main:app --host 0.0.0.0 --port 8001 --reload -->
-
-   <!-- docker-compose up --build -d -->
-
-   <!-- RUNNER_ALLOW_RUNASROOT=true  ./run.sh -->
-
-<!-- 
-   curl -X POST -H "Authorization: token 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" \
-    https://api.github.com/repos/genacr0co/beerloga-check-list-bot/actions/runs/9177337668/force-cancel -->
+   запуск проекта
