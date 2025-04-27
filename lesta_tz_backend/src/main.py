@@ -5,9 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
 from fastapi.staticfiles import StaticFiles
 
-from .app.routers import router as app_routers
-from .admin.app import admin
-
+from .api.routers import api as api_routers
 
 app = FastAPI(title="TF_IDF_LESTA")
 
@@ -18,7 +16,6 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
-
 
 def custom_openapi():
     if not app.openapi_schema:
@@ -43,8 +40,6 @@ def custom_openapi():
 
 app.openapi = custom_openapi
 
-app.include_router(app_routers)
+app.include_router(api_routers)
 
-# app.mount("/static", StaticFiles(directory="static"), name="static")
-
-admin.mount_to(app)
+app.mount("/static", StaticFiles(directory="static"), name="static")
