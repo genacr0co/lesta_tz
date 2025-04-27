@@ -3,11 +3,11 @@ version: '3.8'
 services:
   db:
       image: postgres
-      container_name: check-list-postgres
+      container_name: tf_idf-postgres
       environment:
-        POSTGRES_USER: beerloga
-        POSTGRES_PASSWORD: beerloga123456789
-        POSTGRES_DB: check_list
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: tf_idf
       ports:
         - "5433:5432"
       volumes:
@@ -15,9 +15,17 @@ services:
 
   web:
     build: .
-    container_name: check-list-bot
+    container_name: tf_idf_lesta
     ports:
-      - "8003:8000"
+      - "8001:8000"
+
+    environment:
+      - DB_HOST=tf_idf-postgres
+      - DB_PORT=5433
+      - DB_NAME=tf_idf
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      
     volumes:
       - static-data:/app/static
 
@@ -26,7 +34,7 @@ services:
 
   redis_service:
     image: redis
-    container_name: check-list-redis
+    container_name: tf_idf-redis
     volumes:
       - redis_data:/data
 
