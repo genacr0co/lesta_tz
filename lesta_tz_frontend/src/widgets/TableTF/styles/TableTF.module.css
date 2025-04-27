@@ -1,51 +1,63 @@
-.TableHead {
-    width: 100%;
-    padding: 24px;
-    background-color: #ffffff;
-    font-weight: bold;
-    border-top-left-radius: 32px;
-    border-top-right-radius: 32px;
-    border-bottom-right-radius: 0px;
-    border-bottom-left-radius: 0px;
 
-    margin: 20px auto 10px auto;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    max-width: 800px;
+.table {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
 }
 
-.TableBottom {
-    width: 100%;
-    padding: 24px;
-    background-color: #ffffff;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 32px;
-    border-bottom-left-radius: 32px;
+.table_body {
+    height: calc(100vh - 80px);
+}
 
-    margin: 10px auto 20px auto;
+.table_bottom {
+    background-color: white;
+    min-height: 80px;
+    height: 80px;
+    max-height: 80px;
+    padding: 24px;
+    border-top: 2px solid #f4f4f4;
+
+}
+
+
+.TableHead {
+    width: 100%;
+    max-height: 80px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     flex-direction: row;
-    max-width: 800px;
+    background-color: white;
+    margin-bottom: 2px;
+}
+
+.rows {
+    width: 100%;
+    overflow: hidden scroll;
+    height: calc(100vh -  160px);
 }
 
 .TableRow{
     width: 100%;
-    padding: 16px 20px;
+    /* padding: 16px 30px; */
     background-color: #ffffff;
 
     margin: 0px auto 2px auto;
     display: flex;
     align-items: center;
     flex-direction: row;
-    max-width: 800px;
+ 
 }
 
+.Column {
+    padding: 30px;
+}
 
+.rowColumn {
+    padding: 5px 30px;
+}
 
-.BoderRight {
-    /* border-right: 1px solid #e1e1e1; */
+.BorderRight {
+    border-right: 2px solid #f4f4f4;
 }

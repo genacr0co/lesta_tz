@@ -1,5 +1,5 @@
 export const urls = {
-    getBookList() {
-        return `/api/books/`;
+    getWordList(document_id: number) {
+        return `/api/document/${document_id}/words`;
     },
 };

@@ -1,5 +1,5 @@
 export const urls = {
-    getBookList() {
-        return `/api/books/`;
+    getDocsList() {
+        return `/api/documents`;
     },
 };

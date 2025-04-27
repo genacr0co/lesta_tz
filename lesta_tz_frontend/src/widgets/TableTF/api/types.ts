@@ -1,23 +1,21 @@
 
-export type TFilterName = undefined | '' | 'price' | 'author' | 'date';
-
-export interface IFilterBy {
-    name: TFilterName;
-    order: boolean; // true is 'desc'
+export interface IGetWordList {
+    page: number;
+    page_size: number;
+    total: number;
+    total_pages: number;
+    results: IGetWordListItem [];
 }
 
-export interface IBookItem {
-    id: number;
-    title: string;
-    author: string;
-    date: string;
-    price: number;
-    tags: string[];
+export interface IGetWordListItem {
+    word: string;
+    tf: number;
+    idf: number;
 }
 
-export interface IGetBookListParams {
-    tags?: string[];
-    sendAll?: boolean;
-    filterBy?: IFilterBy;
+export interface IGetWordListParams {
+    document_id: number;
+    page?: number;
+    page_size?: number;
 }
 

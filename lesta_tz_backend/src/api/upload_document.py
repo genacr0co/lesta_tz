@@ -60,7 +60,12 @@ async def upload(
 
     # Считаем tf слов в файле
     text = file_content.decode("utf-8")
+
     words_list = clean_text(text)
+    total_words = len(words_list)
+    if total_words == 0:
+        raise HTTPException(status_code=400, detail="Файл не содержит слов после очистки текста")
+
     tf_counter = Counter(words_list)
 
     # Находим уже существующие слова
@@ -82,11 +87,13 @@ async def upload(
         for word_id, word_text in new_inserted_words:
             existing_word_map[word_text] = word_id
 
+            
     document_words = [
         {
             "document_id": doc_id,
             "word_id": existing_word_map[word_text],
-            "tf": count,
+            "tf": ( count / total_words),
+            "text": word_text
         }
         for word_text, count in tf_counter.items()
     ]

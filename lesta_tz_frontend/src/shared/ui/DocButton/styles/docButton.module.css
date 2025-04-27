@@ -1,45 +1,46 @@
 .root {
-    /* background-color: #FFF8F3;
-    color: #000000;
-    display: inline-flex;
-    justify-content: center;
+    display: flex;
     align-items: center;
-    border-radius: 50px;
-    padding: 10px;
-    font-size: 12px;
-    font-weight: normal;
-    transition: .3s ease-in-out;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    text-align: center; */
-    cursor: pointer;
-    /* background-color: #a87c5c; */
-    display: inline-flex;
+    flex-direction: row;
+    gap: 12px;
     padding: 0;
     position: relative;
-
+    width: 100%;
+    
 }
 
-.selected {
-
-    /* background-color: #405D72;
-    color: white; */
+.icon{
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 
-
-/* .root:hover {
-    background-color: #405D72;
-    color: white;
-} */
-
-
-
-.disabled {
-    pointer-events: none;
-    cursor: default;
+.title {
+    width: 180px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
-.fixed {
-    width: 109px !important;
+.title:hover {
+    cursor: pointer;
+    color: #397af5;
+    text-decoration: underline;
+}
+
+.view {
+    opacity: 0.3;
+    cursor: pointer;
+}
+
+.view:hover {
+    opacity: 0.63;
+}
+
+.delete {
+ color: #b3b3b3;
+ cursor: pointer;
+}
+
+.delete:hover {
+    color: #f84c4c;
 }

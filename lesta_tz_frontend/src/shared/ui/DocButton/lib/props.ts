@@ -3,7 +3,8 @@ import {ReactNode, MouseEventHandler} from "react";
 export interface Props {
     children?: ReactNode;
     disabled?: Boolean;
-    onClick?: MouseEventHandler<HTMLDivElement>;
+    onClickTitle?: MouseEventHandler<HTMLDivElement>;
     fixed?: Boolean;
     selected?: Boolean;
+    title?: String;
 }

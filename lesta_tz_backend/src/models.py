@@ -1,4 +1,4 @@
-from sqlalchemy import MetaData, Column, Integer, String, ForeignKey, UniqueConstraint
+from sqlalchemy import MetaData, Column, Integer, String, ForeignKey, UniqueConstraint, Float
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -24,7 +24,7 @@ class DocumentWord(Base):
     document_id = Column(Integer, ForeignKey('documents.id'))
     word_id = Column(Integer, ForeignKey('words.id'))
     text = Column(String, index=True)
-    tf = Column(Integer, nullable=False)  # Сколько раз слово встречается в документе
+    tf = Column(Float, nullable=False)  # Сколько раз слово встречается в документе
 
     document = relationship("Document", back_populates="words")
     word = relationship("Word", back_populates="documents")

@@ -40,10 +40,9 @@
 
 body {
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: hidden;
     /* background-color: #F7E7DC ; */
     background-color: #f4f4f4 ;
-
 }
 
 .container {
