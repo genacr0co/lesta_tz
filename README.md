@@ -1,23 +1,17 @@
 ## ТЗ LESTA GAMES TF IDF
 
+Чтобы быстрее запустить проект можете открыть **run.bat**
+Для запуска через *run.bat* требуеется установленный и
+настроенный  **Docker (Docker Desktop)**
 
-здесь будет описание как запустить проект
+*run.bat *начнет билдить докер контейнеры для **frontend** и **backend** части
 
-Frontend часть на Next js
+для *backend* внешний порт подключения будет **8001**
+для *frontend* внешний порт подключения будет **3001**
 
-Backend Python Fast Api
+Frontend часть на **Next js**
+Backend **Python Fast Api**
 
-<!-- alembic revision --autogenerate -m "init commit" -->
-
-<!-- alembic upgrade head -->
-
-<!-- uvicorn src.main:app --host 0.0.0.0 --port 8001 --reload -->
-
-<!-- docker-compose up --build -d -->
-
-<!-- RUNNER_ALLOW_RUNASROOT=true  ./run.sh -->
-
-
-<!-- 
-   curl -X POST -H "Authorization: token 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" \
-    https://api.github.com/repos/genacr0co/beerloga-check-list-bot/actions/runs/9177337668/force-cancel -->
+если же вы не хотите запускать проект через докер,
+то можете настроить проекты отдельно.
+Внутри каждой  директории будет пошаговая инструкция 
