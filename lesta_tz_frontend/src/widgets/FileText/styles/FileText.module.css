@@ -1,0 +1,8 @@
+
+.content {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 80px);
+    overflow: hidden scroll;
+    padding: 0 30px 30px 30px;
+}

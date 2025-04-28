@@ -23,7 +23,7 @@ export const TableTF = (props: Props) => {
     const [document_id, setDocumentId] = useState<number>();
 
 
-     const { refetch } = useQuery('getFirstPageList', () => {
+     const { refetch } = useQuery('getWordList', () => {
            request();
     });
    
@@ -60,6 +60,14 @@ export const TableTF = (props: Props) => {
         setDocumentId(event.detail.document_id)
     });
 
+    useTrigger(TRIGGER.DELETE_DOCUMENT, (event) => {
+        refetch()
+    });
+
+    useTrigger(TRIGGER.FILE_UPLOADED, (event) => {
+        setDocumentId(event.detail.document_id)
+    });
+
     return (
         <>
         
@@ -72,8 +80,10 @@ export const TableTF = (props: Props) => {
                     </div>
                     <div className={styles.rows}>
                         {
-                            list.map((item) => 
-                                <div key = {item.word} className={styles.TableRow}>
+                            list.map((item, i) => 
+                                <div key = {item.word}
+                                style={{backgroundColor: `${i % 2 === 0 ? "white": "none"}`}}
+                                className={styles.TableRow}>
                                     <div  className={`${styles.rowColumn} ${styles.BorderRight}`} style={{width: "60%"}}>{item.word}</div>
                                     <div  className={`${styles.rowColumn} ${styles.BorderRight}`}style={{width: "20%", textAlign: "center"}}>{item.tf}</div>
                                     <div  className={`${styles.rowColumn}`} style={{width: "20%", textAlign: "center"}}>{item.idf}</div>

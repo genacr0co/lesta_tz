@@ -18,7 +18,9 @@
     outline: none;
     -webkit-tap-highlight-color: transparent;
 }
-
+a {
+    all: unset;
+  }
 .layout {
     min-width: 100% !important;
     min-height: 100% !important;

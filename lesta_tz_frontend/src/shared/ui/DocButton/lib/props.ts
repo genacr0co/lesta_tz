@@ -7,4 +7,5 @@ export interface Props {
     fixed?: Boolean;
     selected?: Boolean;
     title?: String;
+    onDeleteClick?:  MouseEventHandler<HTMLDivElement>;
 }

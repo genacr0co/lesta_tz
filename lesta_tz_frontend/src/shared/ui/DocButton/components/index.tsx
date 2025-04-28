@@ -27,7 +27,7 @@ export const DocButton = (props: Props) => {
           {props.title}
         </div>
 
-        <MdDelete size={32} className={styles.delete}/>
+        <MdDelete size={32} className={styles.delete} onClick={props.onDeleteClick}/>
 
         <IoMdOpen size={32} className={styles.view} />
 
