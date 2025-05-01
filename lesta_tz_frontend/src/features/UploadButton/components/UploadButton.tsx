@@ -10,6 +10,7 @@ import { TRIGGER } from "@/shared/const";
 import { useRef } from 'react';
 import { FaGithub } from "react-icons/fa";
 
+
 export const UploadButton = (props: Props) => {
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -64,7 +65,10 @@ export const UploadButton = (props: Props) => {
             </div>
 
             <a href="https://github.com/genacr0co/lesta_tz/tree/main" target="_blank">
-                 <FaGithub style={{cursor: 'pointer'}} size={32} />
+                   {
+                   // @ts-ignore
+                   <FaGithub style={{cursor: 'pointer'}} size={32}  />
+                   }
             </a>
         </div>
         </>

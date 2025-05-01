@@ -7,6 +7,8 @@ import styles from '../styles/TableTF.module.css';
 import { getWordList } from "../api/services";
 import { IGetWordList, IGetWordListItem, IGetWordListParams } from "../api/types";
 import { TRIGGER } from "@/shared/const";
+import { MdKeyboardArrowLeft } from "react-icons/md";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
 export const TableTF = (props: Props) => {
 
@@ -41,6 +43,8 @@ export const TableTF = (props: Props) => {
                 if (r.status === 200) {
                     console.log(r.data)
                     setList(r.data.results);
+                    setTotalPages(r.data.total_pages)
+                    setTotal(r.data.total)
                 }
             }).catch(e => {
                 console.log(e)
@@ -54,19 +58,31 @@ export const TableTF = (props: Props) => {
 
     useEffect(() => {
         refetch()
-    }, [document_id])
+    }, [document_id, page_size, page])
 
     useTrigger(TRIGGER.SELECT_DOCUMENT, (event) => {
         setDocumentId(event.detail.document_id)
+        setPage(1)
+        setTotalPages(undefined)
     });
 
     useTrigger(TRIGGER.DELETE_DOCUMENT, (event) => {
         refetch()
+        setPage(1)
+        setTotalPages(undefined)
     });
 
     useTrigger(TRIGGER.FILE_UPLOADED, (event) => {
         setDocumentId(event.detail.document_id)
+        setPage(1)
+        setTotalPages(undefined)
     });
+
+
+    const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const newSize = parseInt(event.target.value, 10);
+        setPageSize(newSize);
+      };
 
     return (
         <>
@@ -94,7 +110,46 @@ export const TableTF = (props: Props) => {
                    
                 </div>
                 <div className={styles.table_bottom}>
-                    Нижний раздел - Пагинация
+                    <div className={styles.pageSize}>
+                        <div>
+                            Кол-во строк:
+                        </div>
+
+                        <select id="page-size" value={page_size} onChange={handleChange}>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div className={styles.pageSize}>
+                        <div className={styles.arrowBtn} onClick={() => {
+                            if(page>1){
+                                setPage(page - 1)
+                            }else{
+                                setPage(1)
+                            }
+                        }}>{ 
+                           // @ts-ignore
+                            <MdKeyboardArrowLeft />
+                        }</div>
+                        <div>{total_pages && page}</div>
+                        <div>...</div>
+                        <div>{total_pages}</div>
+                        <div className={styles.arrowBtn} onClick={() => {
+                            if(total_pages) {
+                                if(page<total_pages){
+                                    setPage(page + 1)
+                                }else{
+                                    setPage(total_pages)
+                                }
+                            }
+                        }}>{
+                           // @ts-ignore
+                            <MdOutlineKeyboardArrowRight />
+                        }</div>
+                    </div>
                 </div>
             </div>
 

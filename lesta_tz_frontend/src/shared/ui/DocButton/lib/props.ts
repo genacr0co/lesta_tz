@@ -8,4 +8,6 @@ export interface Props {
     selected?: Boolean;
     title?: String;
     onDeleteClick?:  MouseEventHandler<HTMLDivElement>;
+    download_url?: String;
+    filename?: String;
 }

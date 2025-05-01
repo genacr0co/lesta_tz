@@ -75,7 +75,12 @@ export const DocsList = (props: Props) => {
     return (
         <>
             <div className={styles.Root}>
-                <div className={styles.title}><FcOpenedFolder size={32} /> <div>Список документов</div></div>
+                <div className={styles.title}>
+                    {   
+                     // @ts-ignore
+                     <FcOpenedFolder size={32} />
+                    }
+                  <div>Список документов</div></div>
                 <div className={styles.line}/>
 
                  <div className={styles.ListRow}>
@@ -83,6 +88,8 @@ export const DocsList = (props: Props) => {
                     
                     {
                         list.map((item) => <DocButton
+                        filename={item.filename}
+                        download_url={`${process.env.NEXT_PUBLIC_DOMAIN}/static/${item.filename}`}
                         onDeleteClick={() => delete_request(item.id) }
                         onClickTitle={() => onSelect(item.id)} key={item.id} title={item.filename}/>)
                     }

@@ -26,9 +26,6 @@ export default function App({Component, pageProps}: AppProps) {
     return <div>
         <Head>
             <title>TF IDF</title>
-            <meta name="description" content="Welcome to Book Store."/>
-            <meta name="keywords" content="Book Store, store, book"/>
-
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
         </Head>
         <QueryClientProvider client={queryClient}>

@@ -19,6 +19,10 @@
     padding: 24px;
     border-top: 2px solid #f4f4f4;
 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
 }
 
 
@@ -59,4 +63,25 @@
 
 .BorderRight {
     border-right: 2px solid #f4f4f4;
+}
+
+.pageSize {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.arrowBtn {
+    cursor: pointer;
+    user-select: none;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrowBtn:hover {
+    background-color: #f4f4f4;
 }

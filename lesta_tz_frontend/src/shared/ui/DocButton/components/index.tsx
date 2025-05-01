@@ -2,7 +2,6 @@ import {Props} from "../lib/props";
 import styles from '../styles/docButton.module.css';
 import Image from 'next/image'
 import docs_icon from '../assets/docs.png'
-import eye_icon from '../assets/eye.svg'
 
 import { IoMdOpen } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
@@ -27,9 +26,17 @@ export const DocButton = (props: Props) => {
           {props.title}
         </div>
 
-        <MdDelete size={32} className={styles.delete} onClick={props.onDeleteClick}/>
-
-        <IoMdOpen size={32} className={styles.view} />
+        {
+          // @ts-ignore
+          <MdDelete size={32} className={styles.delete} onClick={props.onDeleteClick}/>
+        }
+ 
+          <a href={`${props.download_url}`}  download={props.download_url} target="_blank">
+          {
+          // @ts-ignore
+          <IoMdOpen size={32} className={styles.view} />
+          }
+          </a>
 
     </div>
 }
