@@ -1,9 +1,5 @@
 @echo off
 
-echo Create Common docker network...
-
-docker network create tf_idf_network
-
 echo Starting Backend containers...
 
 docker-compose -f ./lesta_tz_backend/docker-compose.yml up --build -d
