@@ -3,6 +3,8 @@ import React from "react";
 import {DocsList, TableTF, FileText} from '@/widgets'
 
 const Home = () => {
+    console.log('process.env.NEXT_PUBLIC_DOMAIN: ', process.env.NEXT_PUBLIC_DOMAIN)
+    
     return (
         <>
             <main>
