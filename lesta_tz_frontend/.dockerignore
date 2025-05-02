@@ -1,5 +1,6 @@
 node_modules
 package-lock.json
+.next
 
 .idea
 
@@ -18,4 +19,6 @@ docker-compose.override.yml
 grigory-stack.yml
 .dockerignore
 nginx.conf
+
+.env
 
