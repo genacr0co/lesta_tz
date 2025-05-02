@@ -1,6 +1,8 @@
 @echo off
 
-@REM docker-compose -f ./lesta_tz_backend/docker-compose.yml down
+echo Create Common docker network...
+
+docker network create tf_idf_network
 
 echo Starting Backend containers...
 

@@ -12,6 +12,8 @@ services:
         - "5435:5432"
       volumes:
         - postgres_data:/var/lib/postgresql/data
+      networks:
+        - tf_idf_network
 
   web:
     build: .
@@ -35,6 +37,9 @@ services:
 
     command: >
       sh -c "alembic upgrade head && uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload --forwarded-allow-ips=*"
+    
+    networks:
+      - tf_idf_network
 
   redis_service:
     image: redis
@@ -42,7 +47,14 @@ services:
     volumes:
       - redis_data:/data
 
+    networks:
+      - tf_idf_network
+
 volumes:
   postgres_data:
   static-data:
   redis_data:
+
+networks:
+  tf_idf_network:
+    external: true

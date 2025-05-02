@@ -9,11 +9,11 @@ services:
     ports:
       - "3001:3000"
     environment:
-      - NEXT_PUBLIC_DOMAIN=http://localhost:8001
+      - NEXT_PUBLIC_DOMAIN=http://tf_idf_lesta:8001
     restart: always
     networks:
-      - app-network
+      - tf_idf_network
 
 networks:
-  app-network:
-    driver: bridge
+  tf_idf_network:
+    external: true 
