@@ -9,40 +9,30 @@ nginx.conf
 
 
 
+/lesta_tz_frontend/package-lock.json
 
-# dependencies
 /lesta_tz_frontend/node_modules
 /lesta_tz_frontend/.pnp
 /lesta_tz_frontend/.pnp.js
 
-# testing
 /lesta_tz_frontend/coverage
 
-# next.js
 /lesta_tz_frontend/.next/
 /lesta_tz_frontend/out/
 
-# production
 /lesta_tz_frontend/build
 
-# misc
 /lesta_tz_frontend/.DS_Store
 /lesta_tz_frontend/*.pem
 
-# debug
 /lesta_tz_frontend/npm-debug.log*
 /lesta_tz_frontend/yarn-debug.log*
 /lesta_tz_frontend/yarn-error.log*
 
-# local env files
 /lesta_tz_frontend/.env*.local
 
-# .env
-
-# vercel
 /lesta_tz_frontend/.vercel
 
-# typescript
 /lesta_tz_frontend/*.tsbuildinfo
 /lesta_tz_frontend/next-env.d.ts
 
