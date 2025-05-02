@@ -6,9 +6,9 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-COPY wait-for-it.sh /usr/local/bin/wait-for-it
+COPY wait-for-it.sh /wait-for-it.sh 
 
-RUN chmod +x /usr/local/bin/wait-for-it
+RUN chmod +x /wait-for-it.sh
 
 COPY . .
 
