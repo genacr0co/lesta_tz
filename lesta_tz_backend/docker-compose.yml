@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: postgres
@@ -26,6 +24,7 @@ services:
       - DB_NAME=tf_idf
       - DB_USER=postgres
       - DB_PASS=postgres
+      - ALLOW_ORIGINS=http://37.9.53.221, http://37.9.53.221:8000, http://37.9.53.221:3000, http://37.9.53.221:5432, http://37.9.53.221:9443
     volumes:
       - alembic-data:/app/alembic/versions
       - static-data:/app/static

@@ -1,4 +1,4 @@
-
+import os
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,9 +9,16 @@ from .api.routers import api as api_routers
 
 app = FastAPI(title="TF_IDF_LESTA")
 
+
+allow_origins = [
+    origin.strip()
+    for origin in os.getenv("ALLOW_ORIGINS", "").split(",")
+    if origin.strip()
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allow_origins,
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
