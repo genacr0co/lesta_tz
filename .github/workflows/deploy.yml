@@ -1,0 +1,55 @@
+name: Deploy Backend and Frontend (main only)
+
+on:
+  push:
+    branches:
+      - main  # только ветка main триггерит CI
+
+jobs:
+  deploy:
+    name: Deploy to Production Server
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Copy backend files to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "lesta_tz_backend/"
+          target: "/home/ubuntu/lesta_tz_backend"
+
+      - name: Copy frontend files to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "lesta_tz_frontend/"
+          target: "/home/ubuntu/lesta_tz_frontend"
+
+      - name: Deploy backend
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /home/ubuntu/lesta_tz_backend
+            docker-compose down
+            docker-compose up -d --build
+
+      - name: Deploy frontend
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /home/ubuntu/lesta_tz_frontend
+            docker-compose down
+            docker-compose up -d --build
