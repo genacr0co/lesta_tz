@@ -20,7 +20,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          source: "lesta_tz_backend/"
+          source: "lesta_tz_backend/*"
           target: "/home/ubuntu/lesta_tz_backend"
 
       - name: Copy frontend files to server
@@ -29,7 +29,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          source: "lesta_tz_frontend/"
+          source: "lesta_tz_frontend/*"
           target: "/home/ubuntu/lesta_tz_frontend"
 
       - name: Deploy backend
@@ -40,8 +40,8 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /home/ubuntu/lesta_tz_backend
-            docker-compose down
-            docker-compose up -d --build
+            docker compose down
+            docker compose up -d --build
 
       - name: Deploy frontend
         uses: appleboy/ssh-action@master
@@ -51,5 +51,5 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /home/ubuntu/lesta_tz_frontend
-            docker-compose down
-            docker-compose up -d --build
+            docker compose down
+            docker compose up -d --build
