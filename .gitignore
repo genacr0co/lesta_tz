@@ -6,8 +6,8 @@
 .idea
 nginx.conf
 
-
-
+.vscode
+/.vscode
 
 /lesta_tz_frontend/package-lock.json
 
