@@ -9,7 +9,7 @@ services:
         POSTGRES_PASSWORD: postgres
         POSTGRES_DB: tf_idf
       ports:
-        - "5435:5432"
+        - "5432:5432"
       volumes:
         - postgres_data:/var/lib/postgresql/data
       networks:
@@ -19,7 +19,7 @@ services:
     build: .
     container_name: tf_idf_lesta
     ports:
-      - "8001:8000"
+      - "8000:8000"
 
     environment:
       - DB_HOST=db

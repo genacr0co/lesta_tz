@@ -6,10 +6,10 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        NEXT_PUBLIC_DOMAIN: http://localhost:8001
+        NEXT_PUBLIC_DOMAIN: http://37.9.53.221:8000
     container_name: tf_idf_lesta_frontend
     ports:
-      - "3001:3000"
+      - "3000:3000"
 
     restart: always
     networks:
