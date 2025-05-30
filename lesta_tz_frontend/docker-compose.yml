@@ -13,6 +13,8 @@ services:
     environment:
       - VIRTUAL_HOST=grenka.uz,www.grenka.uz
       - VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=grenka.uz,www.grenka.uz
+      - LETSENCRYPT_EMAIL=haratian.gena@gmail.com
     restart: always
     networks:
       - tf_idf_network
