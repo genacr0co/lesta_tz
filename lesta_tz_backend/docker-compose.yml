@@ -21,23 +21,6 @@ services:
       - tf_idf_network
     restart: always
 
-  acme-companion:
-    image: nginxproxy/acme-companion
-    container_name: nginx-proxy-acme
-    depends_on:
-      - nginx-proxy
-    environment:
-      - DEFAULT_EMAIL=haratian.gena@gmail.com
-      - NGINX_PROXY_CONTAINER=nginx-proxy
-    volumes:
-      - ./certs:/etc/nginx/certs
-      - ./vhost.d:/etc/nginx/vhost.d
-      - ./html:/usr/share/nginx/html
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    networks:
-      - tf_idf_network
-    restart: always
-
   db:
     image: postgres
     container_name: tf_idf-postgres
@@ -58,8 +41,7 @@ services:
     environment:
       - VIRTUAL_HOST=app.grenka.uz
       - VIRTUAL_PORT=8000
-      - LETSENCRYPT_HOST=app.grenka.uz
-      - LETSENCRYPT_EMAIL=haratian.gena@gmail.com
+
       - DB_HOST=db
       - DB_PORT=${DB_PORT}
       - DB_NAME=${DB_NAME}
@@ -85,8 +67,6 @@ services:
     environment:
       - VIRTUAL_HOST=portainer.grenka.uz
       - VIRTUAL_PORT=9000
-      - LETSENCRYPT_HOST=portainer.grenka.uz
-      - LETSENCRYPT_EMAIL=haratian.gena@gmail.com
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
@@ -100,12 +80,11 @@ services:
     expose:
       - "5050"
     environment:
-      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
       - VIRTUAL_HOST=pgadmin.grenka.uz
       - VIRTUAL_PORT=5050
-      - LETSENCRYPT_HOST=pgadmin.grenka.uz
-      - LETSENCRYPT_EMAIL=haratian.gena@gmail.com
+
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
     depends_on:
       - db
     volumes:
