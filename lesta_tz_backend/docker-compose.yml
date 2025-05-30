@@ -20,8 +20,8 @@ services:
       - DB_HOST=db
       - DB_PORT=5432
       - DB_NAME=tf_idf
-      - DB_USER=postgres
-      - DB_PASS=postgres
+      - DB_USER=admin
+      - DB_PASS=admin
       - ALLOW_ORIGINS=*
     volumes:
       - alembic-data:/app/alembic/versions
