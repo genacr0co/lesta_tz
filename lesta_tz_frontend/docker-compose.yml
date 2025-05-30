@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        NEXT_PUBLIC_DOMAIN: http://37.9.53.221:8000
+        NEXT_PUBLIC_DOMAIN: https://app.grenka.uz
     container_name: tf_idf_lesta_frontend
     ports:
       - "3000:3000"
