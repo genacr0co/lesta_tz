@@ -13,6 +13,10 @@ services:
       - ./vhost.d:/etc/nginx/vhost.d
       - ./html:/usr/share/nginx/html
       - ./nginx.conf:/etc/nginx/conf.d/custom.conf:ro
+
+    labels:
+      com.github.nginx-proxy.nginx: "true"
+      
     networks:
       - tf_idf_network
     restart: always
@@ -24,6 +28,7 @@ services:
       - nginx-proxy
     environment:
       - DEFAULT_EMAIL=haratian.gena@gmail.com
+      - NGINX_PROXY_CONTAINER=nginx-proxy
     volumes:
       - ./certs:/etc/nginx/certs
       - ./vhost.d:/etc/nginx/vhost.d
