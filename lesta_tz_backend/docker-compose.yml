@@ -13,7 +13,6 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/custom.conf:ro
     networks:
       - tf_idf_network
-      - nginx_proxy
     restart: always
 
   acme-companion:
@@ -30,7 +29,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - tf_idf_network
-      - nginx_proxy
     restart: always
 
   db:
@@ -44,7 +42,6 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - tf_idf_network
-      - nginx_proxy
 
   web:
     build: .
@@ -68,7 +65,6 @@ services:
       sh -c "/wait-for-it.sh db:${DB_PORT} -- alembic upgrade head && uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload --forwarded-allow-ips=${ALLOW_ORIGINS}"
     networks:
       - tf_idf_network
-      - nginx_proxy
     restart: always
 
   portainer:
@@ -84,7 +80,6 @@ services:
     restart: always
     networks:
       - tf_idf_network
-      - nginx_proxy
 
   pgadmin:
     image: dpage/pgadmin4
@@ -101,7 +96,6 @@ services:
       - pgadmin_data:/var/lib/pgadmin
     networks:
       - tf_idf_network
-      - nginx_proxy
     restart: always
 
 volumes:
@@ -114,5 +108,3 @@ volumes:
 networks:
   tf_idf_network:
     driver: bridge
-  nginx_proxy:
-    external: true

@@ -16,10 +16,7 @@ services:
       - LETSENCRYPT_EMAIL=you@example.com  # ← замени на свой email
     networks:
       - tf_idf_network
-      - nginx_proxy
 
 networks:
   tf_idf_network:
     driver: bridge
-  nginx_proxy:
-    external: true
