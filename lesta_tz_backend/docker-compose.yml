@@ -9,10 +9,6 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./certs:/etc/nginx/certs:ro
-      - ./vhost.d:/etc/nginx/vhost.d
-      - ./html:/usr/share/nginx/html
-      - ./nginx.conf:/etc/nginx/conf.d/custom.conf:ro
 
     labels:
       com.github.nginx-proxy.nginx: "true"
