@@ -1,18 +1,25 @@
 services:
-  web:
+  frontend:
     build:
       context: .
       dockerfile: Dockerfile
       args:
         NEXT_PUBLIC_DOMAIN: https://app.grenka.uz
     container_name: tf_idf_lesta_frontend
-    ports:
-      - "3000:3000"
-
     restart: always
+    expose:
+      - "3000"
+    environment:
+      - VIRTUAL_HOST=grenka.uz,www.grenka.uz
+      - VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=grenka.uz
+      - LETSENCRYPT_EMAIL=you@example.com  # ← замени на свой email
     networks:
       - tf_idf_network
+      - nginx_proxy
 
 networks:
   tf_idf_network:
     driver: bridge
+  nginx_proxy:
+    external: true
