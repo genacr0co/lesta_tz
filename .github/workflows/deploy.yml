@@ -50,9 +50,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            if ! sudo docker network ls | grep -q tf_idf_network; then
-              sudo docker network create tf_idf_network
-            fi
+            sudo docker network create tf_idf_network
 
       - name: Deploy backend
         uses: appleboy/ssh-action@master

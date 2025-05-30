@@ -27,7 +27,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - tf_idf_network
+      - network_backend
 
   web:
     build: .
@@ -54,6 +54,8 @@ services:
       sh -c "/wait-for-it.sh db:${DB_PORT} -- alembic upgrade head && uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload --forwarded-allow-ips=${ALLOW_ORIGINS}"
     networks:
       - tf_idf_network
+      - network_backend
+
     restart: always
 
   portainer:
@@ -72,6 +74,8 @@ services:
     restart: always
     networks:
       - tf_idf_network
+      - network_backend
+      
 
   pgadmin:
     image: dpage/pgadmin4
@@ -92,6 +96,8 @@ services:
       - pgadmin_data:/var/lib/pgadmin
     networks:
       - tf_idf_network
+      - network_backend
+
     restart: always
 
 volumes:
@@ -102,5 +108,7 @@ volumes:
   pgadmin_data:
 
 networks:
+  network_backend:
+    driver: bridge
   tf_idf_network:
     external: true

@@ -16,7 +16,10 @@ services:
     restart: always
     networks:
       - tf_idf_network
+      - network_frontend
 
 networks:
+  network_frontend:
+    driver: bridge
   tf_idf_network:
     external: true
