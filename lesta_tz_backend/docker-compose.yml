@@ -38,6 +38,8 @@ services:
     container_name: tf_idf_lesta
     expose:
       - "8000"
+    ports:
+      - "8000:8000"  
     environment:
       - VIRTUAL_HOST=app.grenka.uz
       - VIRTUAL_PORT=8000
@@ -63,6 +65,8 @@ services:
     container_name: portainer
     expose:
       - "9000"
+    ports:
+      - "9000:9000"  
     environment:
       - VIRTUAL_HOST=portainer.grenka.uz
       - VIRTUAL_PORT=9000
@@ -77,10 +81,12 @@ services:
     image: dpage/pgadmin4
     container_name: pgadmin
     expose:
-      - "5050"
+      - "80"
+    ports:
+    - "5050:80"  
     environment:
       - VIRTUAL_HOST=pgadmin.grenka.uz
-      - VIRTUAL_PORT=5050
+      - VIRTUAL_PORT=80
 
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
