@@ -32,6 +32,15 @@ jobs:
           source: "lesta_tz_frontend/"
           target: "/home/ubuntu"
 
+      - name: Create .env on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            echo "${{ secrets.ENV_FILE }}" > /home/ubuntu/lesta_tz_backend/.env
+
       - name: Deploy backend
         uses: appleboy/ssh-action@master
         with:
