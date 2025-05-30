@@ -54,6 +54,15 @@ jobs:
               sudo docker network create tf_idf_network
             fi
 
+      - name: Clean up unused Docker images
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            sudo docker image prune -a -f
+
       - name: Deploy backend
         uses: appleboy/ssh-action@master
         with:
