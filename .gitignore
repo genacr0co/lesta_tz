@@ -1,6 +1,7 @@
 .lesta_tz_backend/venv
 /lesta_tz_backend/venv
 /lesta_tz_backend/.idea
+/lesta_tz_backend/.env
 
 /.idea
 .idea
@@ -30,7 +31,7 @@ nginx.conf
 /lesta_tz_frontend/yarn-error.log*
 
 /lesta_tz_frontend/.env*.local
-
+# /lesta_tz_frontend/.env
 /lesta_tz_frontend/.vercel
 
 /lesta_tz_frontend/*.tsbuildinfo
