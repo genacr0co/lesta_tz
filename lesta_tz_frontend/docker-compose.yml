@@ -19,4 +19,4 @@ services:
 
 networks:
   tf_idf_network:
-    driver: bridge
+    external: true
