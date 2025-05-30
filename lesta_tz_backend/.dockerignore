@@ -25,7 +25,5 @@ README.md
 __pycache__
 venv
 
-# .env
-
  .*_history
 .cache

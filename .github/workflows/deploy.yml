@@ -39,7 +39,9 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            echo "${{ secrets.ENV_FILE }}" > /home/ubuntu/lesta_tz_backend/.env
+            cat <<EOF > /home/ubuntu/lesta_tz_backend/.env
+            ${{ secrets.ENV_FILE }}
+            EOF
 
       - name: Deploy backend
         uses: appleboy/ssh-action@master
