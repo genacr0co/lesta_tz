@@ -1,0 +1,3 @@
+[tool.poetry]
+name = "lesta_tz_backend"
+packages = [{ include = "src" }]

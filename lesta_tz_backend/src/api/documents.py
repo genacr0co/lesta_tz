@@ -1,6 +1,3 @@
-import os
-import sys
-
 from fastapi import Depends, APIRouter, HTTPException
 
 from sqlalchemy import select
@@ -9,9 +6,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from typing import Union
 from pathlib import Path
-
-
-sys.path.append(os.path.join(sys.path[0], 'src'))
 
 from src.db import get_async_session
 from src.models import Document

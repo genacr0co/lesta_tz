@@ -1,6 +1,21 @@
 version: "3.8"
 
 services:
+  postfix:
+    image: catatnight/postfix
+    container_name: postfix
+    restart: always
+    environment:
+      - maildomain=grenka.uz
+      - smtp_user=${SMTP_USER}:${SMTP_PASSWORD}
+    networks:
+      - tf_idf_network
+      - network_backend
+    expose:
+      - "25"
+    ports:
+      - "2525:25"
+
   nginx-proxy:
     image: nginxproxy/nginx-proxy:1.7
     container_name: nginx-proxy
@@ -68,6 +83,11 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASS=${DB_PASS}
       - ALLOW_ORIGINS=${ALLOW_ORIGINS}
+
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SENDER_EMAIL=${SENDER_EMAIL}
+
     volumes:
       - alembic-data:/app/alembic/versions
       - static-data:/app/static

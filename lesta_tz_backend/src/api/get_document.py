@@ -1,5 +1,3 @@
-import os
-import sys
 import math
 
 from fastapi import Depends, Query, APIRouter
@@ -7,9 +5,6 @@ from fastapi import Depends, Query, APIRouter
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
-
-
-sys.path.append(os.path.join(sys.path[0], 'src'))
 
 from src.db import get_async_session
 from src.models import Document, DocumentWord

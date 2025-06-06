@@ -1,5 +1,3 @@
-import os
-import sys
 import string
 import uuid
 
@@ -13,8 +11,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from pathlib import Path
 from collections import Counter
-
-sys.path.append(os.path.join(sys.path[0], 'src'))
 
 from src.db import get_async_session
 from src.models import Document, Word, DocumentWord

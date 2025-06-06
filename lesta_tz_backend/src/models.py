@@ -5,6 +5,14 @@ from sqlalchemy.ext.declarative import declarative_base
 metadata = MetaData()
 Base = declarative_base(metadata=metadata)
 
+class Users(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, nullable=False, unique=True)
+    name = Column(String, nullable=False)
+    password = Column(String, nullable=False)
+    pwc_code = Column(Integer , nullable=True)
+
 class Document(Base):
     __tablename__ = 'documents'
     id = Column(Integer, primary_key=True, index=True)
