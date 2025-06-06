@@ -7,9 +7,10 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./certs:/etc/nginx/certs
-      - ./vhost.d:/etc/nginx/vhost.d
-      - ./html:/usr/share/nginx/html
+
+      - /home/ubuntu/nginx-proxy-data/certs:/etc/nginx/certs
+      - /home/ubuntu/nginx-proxy-data/vhost.d:/etc/nginx/vhost.d
+      - /home/ubuntu/nginx-proxy-data/html:/usr/share/nginx/html
 
     labels:
       com.github.nginx-proxy.nginx: "true"
@@ -26,11 +27,13 @@ services:
     environment:
       - NGINX_PROXY_CONTAINER=nginx-proxy
       - DEFAULT_EMAIL=haratian.gena@gmail.com
+      - ACME_CA_URI=https://acme-staging-v02.api.letsencrypt.org/directory #потом удалить (временные сертификаты)
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./certs:/etc/nginx/certs
-      - ./vhost.d:/etc/nginx/vhost.d
-      - ./html:/usr/share/nginx/html
+
+      - /home/ubuntu/nginx-proxy-data/certs:/etc/nginx/certs
+      - /home/ubuntu/nginx-proxy-data/vhost.d:/etc/nginx/vhost.d
+      - /home/ubuntu/nginx-proxy-data/html:/usr/share/nginx/html
     networks:
       - tf_idf_network
     restart: always
