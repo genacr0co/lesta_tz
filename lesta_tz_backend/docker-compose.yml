@@ -131,7 +131,7 @@ services:
     restart: always
 
   postfix:
-    image: catatnight/postfix
+    image: boky/postfix
     container_name: postfix
     restart: always
     environment:
