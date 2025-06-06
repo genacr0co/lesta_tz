@@ -137,6 +137,7 @@ services:
     environment:
       - maildomain=grenka.uz
       - smtp_user=${SMTP_USER}:${SMTP_PASSWORD}
+      - ALLOWED_SENDER_DOMAINS=grenka.uz
     networks:
       - tf_idf_network
       - network_backend
