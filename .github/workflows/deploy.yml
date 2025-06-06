@@ -96,11 +96,11 @@ jobs:
             sudo docker compose down
             sudo docker compose up -d --build
 
-      - name: Clean up unused Docker images
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            sudo docker image prune -a -f
+      # - name: Clean up unused Docker images
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.SSH_HOST }}
+      #     username: ${{ secrets.SSH_USER }}
+      #     key: ${{ secrets.SSH_KEY }}
+      #     script: |
+      #       sudo docker image prune -a -f
