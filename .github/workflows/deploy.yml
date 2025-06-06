@@ -21,7 +21,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            rm -rf /home/ubuntu/lesta_tz_backend
+            sudo rm -rf /home/ubuntu/lesta_tz_backend
 
       - name: Copy backend files to server
         uses: appleboy/scp-action@master
@@ -39,7 +39,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            rm -rf /home/ubuntu/lesta_tz_frontend
+            sudo rm -rf /home/ubuntu/lesta_tz_frontend
 
       - name: Copy frontend files to server
         uses: appleboy/scp-action@master
