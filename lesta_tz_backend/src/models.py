@@ -5,6 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 metadata = MetaData()
 Base = declarative_base(metadata=metadata)
 
+
 class Users(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True, index=True)
