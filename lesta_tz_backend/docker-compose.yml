@@ -141,10 +141,7 @@ services:
       - maildomain=grenka.uz
       - smtp_user=${SMTP_USER}:${SMTP_PASSWORD}
       - ALLOWED_SENDER_DOMAINS=grenka.uz
-
       - TLS_ENABLE=true
-      - TLS_CERT_FILE=/etc/postfix/certs/app.grenka.uz.crt
-      - TLS_KEY_FILE=/etc/postfix/certs/app.grenka.uz.key
     networks:
       - tf_idf_network
       - network_backend
@@ -152,6 +149,8 @@ services:
       - "25"
     ports:
       - "2525:25"
+    volumes:
+      - /home/ubuntu/nginx-proxy-data/certs:/etc/nginx/certs:ro
 
 volumes:
   alembic-data:
