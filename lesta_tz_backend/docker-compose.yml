@@ -141,7 +141,15 @@ services:
       - maildomain=grenka.uz
       - smtp_user=${SMTP_USER}:${SMTP_PASSWORD}
       - ALLOWED_SENDER_DOMAINS=grenka.uz
+
+      - TLS_ENABLE=false
+      - SMTPD_USE_TLS=no
+      - SMTPD_TLS_SECURITY_LEVEL=none
+      - SMTP_TLS_SECURITY_LEVEL=none
+
       # - TLS_ENABLE=true
+      # - TLS_CERT_FILE=/etc/nginx/certs/app.grenka.uz.crt
+      # - TLS_KEY_FILE=/etc/nginx/certs/app.grenka.uz.key
     networks:
       - tf_idf_network
       - network_backend
