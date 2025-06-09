@@ -27,7 +27,7 @@ services:
     environment:
       - NGINX_PROXY_CONTAINER=nginx-proxy
       - DEFAULT_EMAIL=haratian.gena@gmail.com
-      - ACME_CA_URI=https://acme-staging-v02.api.letsencrypt.org/directory #потом удалить (временные сертификаты)
+      # - ACME_CA_URI=https://acme-staging-v02.api.letsencrypt.org/directory 
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
