@@ -1,7 +1,6 @@
 import random
 import aiosmtplib
 from email.message import EmailMessage
-import ssl
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -56,11 +55,6 @@ async def send_email(to_email: str, subject: str, body: str) -> bool:
     message["Subject"] = subject
     message.set_content(body)
 
-    # Создаём контекст SSL без валидации сертификата
-    ssl_context = ssl.create_default_context()
-    ssl_context.check_hostname = False
-    ssl_context.verify_mode = ssl.CERT_NONE
-
     try:
         await aiosmtplib.send(
             message,
@@ -68,8 +62,7 @@ async def send_email(to_email: str, subject: str, body: str) -> bool:
             port=SMTP_PORT,
             username=SMTP_USER,
             password=SMTP_PASSWORD,
-            start_tls=False,              # True <== если используется порт 587
-            tls_context=ssl_context,     # <== отключаем проверку SSL-серта
+            start_tls=True, 
         )
         return True
     except Exception as e:
