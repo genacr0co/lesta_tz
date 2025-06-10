@@ -156,23 +156,7 @@ services:
     volumes:
       - /home/ubuntu/nginx-proxy-data/certs:/etc/nginx/certs:ro
 
-  # webmail:
-  #   image: hardware/rainloop
-  #   container_name: rainloop
-  #   environment:
-  #     - VIRTUAL_HOST=mail.grenka.uz
-  #     - VIRTUAL_PORT=80
-  #     - LETSENCRYPT_HOST=mail.grenka.uz
-  #     - LETSENCRYPT_EMAIL=haratian.gena@gmail.com
-  #   expose:
-  #     - "80"
-  #   ports:
-  #     - "6060:80"
-  #   volumes:
-  #     - rainloop_data:/rainloop/data
-  #   networks:
-  #     - tf_idf_network
-  #     - network_backend
+
 
 
 volumes:
