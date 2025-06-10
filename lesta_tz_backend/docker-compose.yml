@@ -140,11 +140,11 @@ services:
     environment:
       - maildomain=grenka.uz
       - smtp_user=${SMTP_USER}:${SMTP_PASSWORD}
-      - ALLOWED_SENDER_DOMAINS=grenka.uz
+      - ALLOWED_SENDER_DOMAINS=grenka.uz mail.grenka.uz
 
-      - TLS_ENABLE=true
-      - TLS_CERT_FILE=/etc/nginx/certs/app.grenka.uz.crt
-      - TLS_KEY_FILE=/etc/nginx/certs/app.grenka.uz.key
+      # - TLS_ENABLE=true
+      # - TLS_CERT_FILE=/etc/nginx/certs/app.grenka.uz.crt
+      # - TLS_KEY_FILE=/etc/nginx/certs/app.grenka.uz.key
     networks:
       - tf_idf_network
       - network_backend
@@ -154,6 +154,22 @@ services:
       - "${SMTP_PORT}:${SMTP_PORT}"
     volumes:
       - /home/ubuntu/nginx-proxy-data/certs:/etc/nginx/certs:ro
+
+  webmail:
+    image: hardware/rainloop
+    container_name: rainloop
+    environment:
+      - VIRTUAL_HOST=mail.grenka.uz
+      - VIRTUAL_PORT=7000
+      - LETSENCRYPT_HOST=mail.grenka.uz
+      - LETSENCRYPT_EMAIL=haratian.gena@gmail.com
+    expose:
+      - "7000"
+    depends_on:
+      - postfix
+    networks:
+      - tf_idf_network
+      - network_backend
 
 volumes:
   alembic-data:
