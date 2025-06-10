@@ -162,7 +162,7 @@ services:
     container_name: rainloop
     environment:
       - VIRTUAL_HOST=mail.grenka.uz
-      - VIRTUAL_PORT=7000
+      - VIRTUAL_PORT=6060
       - LETSENCRYPT_HOST=mail.grenka.uz
       - LETSENCRYPT_EMAIL=haratian.gena@gmail.com
     expose:
