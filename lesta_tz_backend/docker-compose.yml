@@ -166,11 +166,9 @@ services:
       - LETSENCRYPT_HOST=mail.grenka.uz
       - LETSENCRYPT_EMAIL=haratian.gena@gmail.com
     expose:
-      - "7000"
+      - "6060"
     ports:
-      - "7000:7000"
-    depends_on:
-      - postfix
+      - "6060:6060"
     volumes:
       - rainloop_data:/rainloop/data
     networks:
