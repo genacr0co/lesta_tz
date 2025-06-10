@@ -169,9 +169,12 @@ services:
       - "7000"
     depends_on:
       - postfix
+    volumes:
+      - rainloop_data:/rainloop/data
     networks:
       - tf_idf_network
       - network_backend
+
 
 volumes:
   alembic-data:
@@ -179,6 +182,7 @@ volumes:
   static-data:
   portainer_data:
   pgadmin_data:
+  rainloop_data:
 
 networks:
   network_backend:
