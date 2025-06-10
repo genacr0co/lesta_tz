@@ -167,6 +167,8 @@ services:
       - LETSENCRYPT_EMAIL=haratian.gena@gmail.com
     expose:
       - "7000"
+    ports:
+      - "7000:7000"
     depends_on:
       - postfix
     volumes:
