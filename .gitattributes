@@ -1,0 +1,8 @@
+lesta_tz_frontend/docker-compose.yml merge=ours
+lesta_tz_frontend/.env merge=ours
+
+lesta_tz_backend/docker-compose.yml merge=ours
+lesta_tz_backend/.env merge=ours
+
+.gitignore merge=ours
+nginx_proxy/** merge=ours
