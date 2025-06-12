@@ -50,6 +50,12 @@ jobs:
           mkdir -p /home/ubuntu/lesta_tz_frontend
           rsync -av --delete ./lesta_tz_frontend/ /home/ubuntu/lesta_tz_frontend/
 
+      - name: Create frontend .env
+        run: |
+          cat <<EOF > /home/ubuntu/lesta_tz_frontend/.env
+          ${{ secrets.FRONTEND_ENV }}
+          EOF
+
       # DEPLOY
       - name: Deploy nginx-proxy
         run: |

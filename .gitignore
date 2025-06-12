@@ -13,7 +13,7 @@ nginx.conf
 /.vscode
 
 /lesta_tz_frontend/package-lock.json
-
+/lesta_tz_frontend/.env
 /lesta_tz_frontend/node_modules
 /lesta_tz_frontend/.pnp
 /lesta_tz_frontend/.pnp.js

@@ -4,17 +4,17 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        NEXT_PUBLIC_DOMAIN: https://app.grenka.uz
+        NEXT_PUBLIC_DOMAIN: ${NEXT_PUBLIC_DOMAIN}
     container_name: tf_idf_lesta_frontend
     expose:
-      - "3000"
+      - "${FRONTEND_VIRTUAL_PORT}"
     ports:
-      - "3000:3000"  
+      - "${FRONTEND_VIRTUAL_PORT}:${FRONTEND_VIRTUAL_PORT}"  
     environment:
-      - VIRTUAL_HOST=grenka.uz,www.grenka.uz
-      - VIRTUAL_PORT=3000
-      - LETSENCRYPT_HOST=grenka.uz,www.grenka.uz
-      - LETSENCRYPT_EMAIL=haratian.gena@gmail.com
+      - VIRTUAL_HOST=${FRONTEND_VIRTUAL_HOST}
+      - VIRTUAL_PORT=${FRONTEND_VIRTUAL_PORT}
+      - LETSENCRYPT_HOST=${FRONTEND_VIRTUAL_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
     restart: always
     networks:
       - tf_idf_network
