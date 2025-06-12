@@ -3,6 +3,8 @@
 /lesta_tz_backend/.idea
 /lesta_tz_backend/.env
 
+/nginx_proxy/.env
+
 /.idea
 .idea
 nginx.conf

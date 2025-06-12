@@ -30,17 +30,17 @@ async def pwc_code(body: PwcCodeRequestBody, session: AsyncSession = Depends(get
     await session.commit()
 
 
-    subject = "Код подтверждения регистрации"
-    message = (
-        f"Здравствуйте, {user.name}!\n\n"
-        f"Ваш код подтверждения: {pwc_code}\n"
-        f"Введите его в форме авторизации на grenka.uz.\n\n"
-        f"С уважением,\n grenka.uz"
-    )
+    # subject = "Код подтверждения регистрации"
+    # message = (
+    #     f"Здравствуйте, {user.name}!\n\n"
+    #     f"Ваш код подтверждения: {pwc_code}\n"
+    #     f"Введите его в форме авторизации на grenka.uz.\n\n"
+    #     f"С уважением,\n grenka.uz"
+    # )
 
     # Отправляем письмо
-    sent = await send_email(to_email=user.email, subject=subject, body=message)
-    if not sent:
-        raise HTTPException(status_code=500, detail="Ошибка при отправке email")
+    # sent = await send_email(to_email=user.email, subject=subject, body=message)
+    # if not sent:
+    #     raise HTTPException(status_code=500, detail="Ошибка при отправке email")
 
     return {"email": user.email, "pwc_code": pwc_code}

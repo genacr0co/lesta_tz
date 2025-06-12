@@ -1,43 +1,4 @@
 services:
-  nginx-proxy:
-    image: nginxproxy/nginx-proxy:1.7
-    container_name: nginx-proxy
-    ports:
-      - "${NGINX_PORT_HTTP}:${NGINX_PORT_HTTP}"
-      - "${NGINX_PORT_HTTPS}:${NGINX_PORT_HTTPS}"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-
-      - /home/ubuntu/nginx-proxy-data/certs:/etc/nginx/certs
-      - /home/ubuntu/nginx-proxy-data/vhost.d:/etc/nginx/vhost.d
-      - /home/ubuntu/nginx-proxy-data/html:/usr/share/nginx/html
-
-    labels:
-      com.github.nginx-proxy.nginx: "true"
-      
-    networks:
-      - tf_idf_network
-    restart: always
-
-  acme-companion:
-    image: nginxproxy/acme-companion
-    container_name: nginx-proxy-acme
-    depends_on:
-      - nginx-proxy
-    environment:
-      - NGINX_PROXY_CONTAINER=nginx-proxy
-      - DEFAULT_EMAIL=haratian.gena@gmail.com
-      # - ACME_CA_URI=https://acme-staging-v02.api.letsencrypt.org/directory 
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-
-      - /home/ubuntu/nginx-proxy-data/certs:/etc/nginx/certs
-      - /home/ubuntu/nginx-proxy-data/vhost.d:/etc/nginx/vhost.d
-      - /home/ubuntu/nginx-proxy-data/html:/usr/share/nginx/html
-    networks:
-      - tf_idf_network
-    restart: always
-
   db:
     image: postgres
     container_name: tf_idf-postgres
@@ -58,10 +19,10 @@ services:
     ports:
       - "${BACKEND_PORT}:${BACKEND_PORT}"  
     environment:
-      - VIRTUAL_HOST=app.grenka.uz
+      - VIRTUAL_HOST=${BACKEND_VIRTUAL_HOST}
       - VIRTUAL_PORT=${BACKEND_PORT}
-      - LETSENCRYPT_HOST=app.grenka.uz
-      - LETSENCRYPT_EMAIL=haratian.gena@gmail.com
+      - LETSENCRYPT_HOST=${BACKEND_VIRTUAL_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
 
       - DB_HOST=db
       - DB_PORT=${DB_PORT}
@@ -95,10 +56,10 @@ services:
     ports:
       - "${PORTAINER_PORT}:${PORTAINER_PORT}"  
     environment:
-      - VIRTUAL_HOST=portainer.grenka.uz
+      - VIRTUAL_HOST=${PORTAINER_VIRTUAL_HOST}
       - VIRTUAL_PORT=${PORTAINER_PORT}
-      - LETSENCRYPT_HOST=portainer.grenka.uz
-      - LETSENCRYPT_EMAIL=haratian.gena@gmail.com
+      - LETSENCRYPT_HOST=${PORTAINER_VIRTUAL_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
@@ -116,10 +77,10 @@ services:
     ports:
     - "${PGADMIN_PORT}:${PGADMIN_PORT}"  
     environment:
-      - VIRTUAL_HOST=pgadmin.grenka.uz
+      - VIRTUAL_HOST=${PGADMIN_VIRTUAL_HOST}
       - VIRTUAL_PORT=${PGADMIN_PORT}
-      - LETSENCRYPT_HOST=pgadmin.grenka.uz
-      - LETSENCRYPT_EMAIL=haratian.gena@gmail.com
+      - LETSENCRYPT_HOST=${PGADMIN_VIRTUAL_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
 
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
@@ -133,55 +94,12 @@ services:
 
     restart: always
 
-  # postfix:
-  #   image: boky/postfix
-  #   container_name: postfix
-  #   restart: always
-  #   environment:
-  #     - POSTFIX_myhostname=mail.grenka.uz
-  #     - maildomain=grenka.uz
-  #     - smtp_user=${SMTP_USER}:${SMTP_PASSWORD}
-  #     - ALLOWED_SENDER_DOMAINS=grenka.uz,mail.grenka.uz
-
-  #     - TLS_ENABLE=true
-  #     - TLS_CERT_FILE=/etc/nginx/certs/mail.grenka.uz.crt
-  #     - TLS_KEY_FILE=/etc/nginx/certs/mail.grenka.uz.key
-
-  #   networks:
-  #     - tf_idf_network
-  #     - network_backend
-  #   expose:
-  #     - "${SMTP_PORT}"
-  #   ports:
-  #     - "${SMTP_PORT}:${SMTP_PORT}"
-  #   volumes:
-  #     - /home/ubuntu/nginx-proxy-data/certs:/etc/nginx/certs:ro
-
-  postfix:
-    image: namshi/smtp
-    container_name: postfix
-    restart: always
-    environment:
-      - RELAY_NETWORKS=0.0.0.0/0
-      - DKIM_DOMAIN=grenka.uz
-      - DKIM_SELECTOR=default
-      - DKIM_PRIVATE_KEY=/etc/opendkim/keys/default.private
-      - SMTP_USER=${SMTP_USER}:${SMTP_PASSWORD}
-    ports:
-      - "587:587"
-    volumes:
-      - /home/ubuntu/dkim:/etc/opendkim/keys
-    networks:
-      - tf_idf_network
-      - network_backend
-
 volumes:
   alembic-data:
   postgres_data:
   static-data:
   portainer_data:
   pgadmin_data:
-  rainloop_data:
 
 networks:
   network_backend:
