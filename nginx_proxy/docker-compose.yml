@@ -34,6 +34,8 @@ services:
       - /home/ubuntu/nginx-proxy-data/certs:/etc/nginx/certs
       - /home/ubuntu/nginx-proxy-data/vhost.d:/etc/nginx/vhost.d
       - /home/ubuntu/nginx-proxy-data/html:/usr/share/nginx/html
+
+      - /home/ubuntu/nginx-proxy-data/acme:/etc/acme.sh
     networks:
       - tf_idf_network
     restart: always
