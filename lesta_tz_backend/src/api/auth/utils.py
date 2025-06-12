@@ -10,7 +10,7 @@ from typing import Tuple, Optional
 from pydantic import EmailStr
 
 from src.models import Users
-from src.config import REFRESH_TOKEN_EXPIRE_DAYS, ALGORITHM, SECRET_KEY, ACCESS_TOKEN_EXPIRE_MINUTES, 
+from src.config import REFRESH_TOKEN_EXPIRE_DAYS, ALGORITHM, SECRET_KEY, ACCESS_TOKEN_EXPIRE_MINUTES
 
 from .schemas import User
 
