@@ -12,3 +12,6 @@ swarm.yml
 grigory-stack.yml
 .idea
 .vscode
+
+.env*.local
+

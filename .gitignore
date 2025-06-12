@@ -32,8 +32,6 @@ nginx.conf
 /lesta_tz_frontend/yarn-debug.log*
 /lesta_tz_frontend/yarn-error.log*
 
-/lesta_tz_frontend/.env*.local
-# /lesta_tz_frontend/.env
 /lesta_tz_frontend/.vercel
 
 /lesta_tz_frontend/*.tsbuildinfo
