@@ -10,7 +10,7 @@ from typing import Tuple, Optional
 from pydantic import EmailStr
 
 from src.models import Users
-from src.config import REFRESH_TOKEN_EXPIRE_DAYS, ALGORITHM, SECRET_KEY, ACCESS_TOKEN_EXPIRE_MINUTES, SENDER_EMAIL, SMTP_PORT, SMTP_HOST, SMTP_PASSWORD, SMTP_USER
+from src.config import REFRESH_TOKEN_EXPIRE_DAYS, ALGORITHM, SECRET_KEY, ACCESS_TOKEN_EXPIRE_MINUTES, 
 
 from .schemas import User
 
@@ -46,25 +46,3 @@ def generate_four_digit_code():
         number = number * 10
 
     return number
-
-
-async def send_email(to_email: str, subject: str, body: str) -> bool:
-    message = EmailMessage()
-    message["From"] = SENDER_EMAIL
-    message["To"] = to_email
-    message["Subject"] = subject
-    message.set_content(body)
-
-    try:
-        await aiosmtplib.send(
-            message,
-            hostname=SMTP_HOST, 
-            port=SMTP_PORT,
-            username=SMTP_USER,
-            password=SMTP_PASSWORD,
-            start_tls=True, 
-        )
-        return True
-    except Exception as e:
-        print(f"Email sending error: {e}")
-        return False
