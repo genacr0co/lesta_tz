@@ -11,20 +11,30 @@ class Users(Base):
     email = Column(String, nullable=False, unique=True)
     name = Column(String, nullable=False)
     password = Column(String, nullable=False)
-    pwc_code = Column(Integer , nullable=True)
+
+    documents = relationship("Document", back_populates="owner", cascade="all, delete-orphan")
+    collections = relationship("Collection", back_populates="owner", cascade="all, delete-orphan")
 
 class Document(Base):
     __tablename__ = 'documents'
     id = Column(Integer, primary_key=True, index=True)
-    filename = Column(String, nullable=False, unique=True)  # Имя файла
-    file_path = Column(String, nullable=False)  # Путь к файлу
-    words = relationship("DocumentWord", back_populates="document")
+    filename = Column(String, nullable=False)
+    file_path = Column(String, nullable=False)
+    owner_id = Column(Integer, ForeignKey('users.id'))
+    content_hash = Column(String, nullable=True) 
+    
+    owner = relationship("Users", back_populates="documents")
+    words = relationship("DocumentWord", back_populates="document", cascade="all, delete-orphan")
+    collections = relationship("CollectionDocument", back_populates="document", cascade="all, delete-orphan")
+
+    __table_args__ = (UniqueConstraint('filename', 'owner_id', name='uc_filename_owner'),)
 
 class Word(Base):
     __tablename__ = 'words'
     id = Column(Integer, primary_key=True, index=True)
-    text = Column(String, index=True)
-    documents = relationship("DocumentWord", back_populates="word")
+    text = Column(String, index=True, unique=True)
+
+    documents = relationship("DocumentWord", back_populates="word", cascade="all, delete-orphan")
 
 class DocumentWord(Base):
     __tablename__ = 'document_words'
@@ -32,9 +42,31 @@ class DocumentWord(Base):
     document_id = Column(Integer, ForeignKey('documents.id'))
     word_id = Column(Integer, ForeignKey('words.id'))
     text = Column(String, index=True)
-    tf = Column(Float, nullable=False)  # Сколько раз слово встречается в документе
+    tf = Column(Float, nullable=False)
 
     document = relationship("Document", back_populates="words")
     word = relationship("Word", back_populates="documents")
 
     __table_args__ = (UniqueConstraint('document_id', 'word_id', name='uc_document_word'),)
+
+class Collection(Base):
+    __tablename__ = 'collections'
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    owner_id = Column(Integer, ForeignKey('users.id'))
+
+    owner = relationship("Users", back_populates="collections")
+    documents = relationship("CollectionDocument", back_populates="collection", cascade="all, delete-orphan")
+
+    __table_args__ = (UniqueConstraint('name', 'owner_id', name='uc_collection_owner'),)
+
+class CollectionDocument(Base):
+    __tablename__ = 'collection_documents'
+    id = Column(Integer, primary_key=True, index=True)
+    collection_id = Column(Integer, ForeignKey('collections.id'))
+    document_id = Column(Integer, ForeignKey('documents.id'))
+
+    collection = relationship("Collection", back_populates="documents")
+    document = relationship("Document", back_populates="collections")
+
+    __table_args__ = (UniqueConstraint('collection_id', 'document_id', name='uc_collection_document'),)

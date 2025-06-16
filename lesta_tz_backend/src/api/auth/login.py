@@ -15,7 +15,7 @@ async def login_for_access_token(
 ) -> Token:
     user = await get_user_by_email(body.email, session)
 
-    if not user or user.pwc_code is None or int(body.pwc_code) != int(user.pwc_code):
+    if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Unauthorized: Invalid credentials"

@@ -27,3 +27,4 @@ http://localhost:3001 (после загрузки документов)
 http://localhost:8001/docs
 ![](https://i.imgur.com/FUK2jyG.png)
 
+ alembic revision --autogenerate -m "Added account table"

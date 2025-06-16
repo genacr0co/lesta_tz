@@ -1,34 +1,19 @@
 from fastapi import APIRouter
 
-
-
-from .auth.register import router as register_router
-from .auth.login import router as login_router
-from .auth.pwc_code import router as pwc_code_router
-
-
-from .delete_document import router as delete_router
-from .documents import router as documents_router
-from .get_document import router as get_document_router
-from .upload_document import router as upload_document_router
-from .futures_api import router as futures_api
+from .auth.routers import router as auth_routers
+from .user.routers import router as user_routers
+from .collections.routers import router as collections_routers
+from .documents.routers import router as documents_routers
+from .meta import router as status_routers
 
 
 api = APIRouter(
-    prefix="/api",
-    tags=["Lesta TF_IDF API"],
+    prefix="/api/v1",
 )
 
-api.include_router(register_router)
-api.include_router(login_router)
-api.include_router(pwc_code_router)
-
-api.include_router(upload_document_router)
-api.include_router(documents_router)
-api.include_router(get_document_router)
-api.include_router(delete_router)
-
-api.include_router(futures_api)
-
-
+api.include_router(auth_routers)
+api.include_router(user_routers)
+api.include_router(collections_routers)
+api.include_router(documents_routers)
+api.include_router(status_routers)
 

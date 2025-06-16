@@ -3,20 +3,16 @@ from fastapi import Depends, APIRouter, HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from passlib.context import CryptContext
-from typing import Tuple, Union, Any
+
+from typing import Union, Any
 
 from src.db import get_async_session
 from src.models import Users
+from src.utils import hash_password
 
 from .schemas import UserCreate
 
 router = APIRouter()
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-def hash_password(password: str) -> str:
-    return pwd_context.hash(password)
 
 @router.post("/register")
 async def register(

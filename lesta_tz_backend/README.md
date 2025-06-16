@@ -23,10 +23,8 @@
 3. `pip install -r requirements.txt`
 
    Устанавливает зависимости
-
-4.  `alembic upgrade head`
-       миграции в бд
-
+4. `alembic upgrade head`
+   миграции в бд
 5. `uvicorn src.main:app --reload`
 
    запуск проекта
