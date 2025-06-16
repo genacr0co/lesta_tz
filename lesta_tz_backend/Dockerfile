@@ -32,6 +32,8 @@ RUN chmod +x /wait-for-it.sh
 # Копируем исходный код
 COPY . .
 
+COPY alembic /app/alembic
+
 # Открываем порт
 EXPOSE 8000
 

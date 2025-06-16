@@ -36,7 +36,6 @@ services:
       - SENDER_EMAIL=${SENDER_EMAIL}
 
     volumes:
-      - alembic-data:/app/alembic/versions
       - static-data:/app/static
     depends_on:
       - db
@@ -95,7 +94,6 @@ services:
     restart: always
 
 volumes:
-  alembic-data:
   postgres_data:
   static-data:
   portainer_data:
