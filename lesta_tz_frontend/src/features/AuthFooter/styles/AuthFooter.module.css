@@ -1,0 +1,21 @@
+
+.footer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 80px;
+}
+
+.footer_link {
+    cursor: pointer;
+    font-size: 14px;
+    color: #9da5a5;
+}
+
+.footer_link:hover {
+       color: #397af5;
+    text-decoration: underline;
+       
+}

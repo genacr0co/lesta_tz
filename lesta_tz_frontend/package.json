@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/compose-function": "^0.0.30",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "20.1.0",
     "@types/react": "18.2.6",
     "@types/react-beautiful-dnd": "^13.1.4",

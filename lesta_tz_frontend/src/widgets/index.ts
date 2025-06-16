@@ -1,4 +1,5 @@
 export * from './DocsList'
 export * from './TableTF'
 export * from './FileText'
-
+export * from './LoginForm'
+export * from './RegisterForm'

@@ -1,6 +1,7 @@
 import React from "react";
 
 import {DocsList, TableTF, FileText} from '@/widgets'
+import {withPrivateRoute} from "@/processes";
 
 const Home = () => {
     console.log('process.env.NEXT_PUBLIC_DOMAIN: ', process.env.NEXT_PUBLIC_DOMAIN)
@@ -22,4 +23,7 @@ const Home = () => {
     )
 };
 
-export default Home;
+
+export default withPrivateRoute(Home, '/login')
+
+

@@ -10,6 +10,9 @@ const nextConfig = {
         defaultLocale: 'ru',
         localeDetection: false,
     },
+    publicRuntimeConfig: {
+        NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN
+    },
 }
 
 module.exports = nextConfig
