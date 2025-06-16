@@ -4,17 +4,19 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from pathlib import Path as FilePath
 import re
-
+import time
 import heapq
 from collections import Counter
 
 from src.db import get_async_session
 from src.utils import check_user_access
 from src.models import Document
+from src.api.meta import update_metrics
+
+from .schemas import HuffmanResponse, CodeItem
 
 router = APIRouter()
 http_bearer = HTTPBearer()
-
 class HuffmanNode:
     def __init__(self, word=None, freq=0):
         self.word = word
@@ -26,14 +28,22 @@ class HuffmanNode:
         return self.freq < other.freq
 
 
-def tokenize(text: str) -> list[str]:
-    # Разделяет на слова с учётом пунктуации
-    return re.findall(r'\b\w+\b', text.lower())
+def tokenize_stream(file_path: str):
+    pattern = re.compile(r'\b\w+\b')
+    with open(file_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            yield from pattern.findall(line.lower())
 
 
-def build_huffman_tree(words: list[str]) -> HuffmanNode:
-    frequency = Counter(words)
-    heap = [HuffmanNode(word, freq) for word, freq in frequency.items()]
+def count_frequencies(file_path: str) -> Counter:
+    freq = Counter()
+    for word in tokenize_stream(file_path):
+        freq[word] += 1
+    return freq
+
+
+def build_huffman_tree(freq: Counter) -> HuffmanNode:
+    heap = [HuffmanNode(word, f) for word, f in freq.items()]
     heapq.heapify(heap)
 
     while len(heap) > 1:
@@ -58,33 +68,34 @@ def build_codes(node: HuffmanNode, prefix="", code_map=None):
             build_codes(node.left, prefix + "0", code_map)
         if node.right:
             build_codes(node.right, prefix + "1", code_map)
-
     return code_map
 
 
-def huffman_encode(text: str) -> dict:
-    words = tokenize(text)
-    if not words:
-        return {"encoded": "", "codes": {}, "original_words": []}
+def huffman_encode_file(file_path: str):
+    freq = count_frequencies(file_path)
+    if not freq:
+        return {"encoded": "", "codes": {}, "original_length": 0, "encoded_length": 0}
 
-    root = build_huffman_tree(words)
+    root = build_huffman_tree(freq)
     codes = build_codes(root)
-    encoded = "".join(codes[word] for word in words)
-    
+
+    words = list(tokenize_stream(file_path))
+    encoded_str = "".join(codes[word] for word in words)
+
     return {
-        "encoded": encoded,
+        "encoded": encoded_str,
         "codes": codes,
         "original_length": len(words),
-        "encoded_length": len(encoded),
+        "encoded_length": len(encoded_str)
     }
 
 
-@router.get("/documents/{document_id}/huffman")
+@router.get("/documents/{document_id}/huffman", response_model=HuffmanResponse)
 async def get_huffman_encoded_document(
     document_id: int = Path(..., ge=1),
     token: HTTPAuthorizationCredentials = Depends(http_bearer),
     session: AsyncSession = Depends(get_async_session)
-):
+) -> HuffmanResponse:
     user = await check_user_access(token, session)
 
     stmt = select(Document).where(Document.id == document_id, Document.owner_id == user.id)
@@ -94,17 +105,37 @@ async def get_huffman_encoded_document(
     if not document:
         raise HTTPException(status_code=404, detail="Документ не найден")
 
-    try:
-        with open(FilePath(document.file_path), "r", encoding="utf-8") as f:
-            text = f.read()
-    except FileNotFoundError:
+    file_path = FilePath(document.file_path)
+    if not file_path.exists():
         raise HTTPException(status_code=500, detail="Файл не найден на сервере")
 
-    encoded_data = huffman_encode(text)
+    try:
+        start_time = time.perf_counter()
+        encoded_data = huffman_encode_file(str(file_path))
+        end_time = time.perf_counter()
+        elapsed_time = end_time - start_time
 
-    return {
-        "encoded": encoded_data["encoded"],
-        "codes": encoded_data["codes"],
-        "original_length": encoded_data["original_length"],  # <= правильно
-        "encoded_length": encoded_data["encoded_length"]
-    }
+        codes_list = [CodeItem(text=word, code=code) for word, code in encoded_data["codes"].items()]
+
+        file_size = file_path.stat().st_size
+
+        # Обновляем метрики
+        await update_metrics(
+            session=session,
+            time_taken=elapsed_time,
+            user_id=user.id,
+            user_name=user.name,
+            file_size=file_size,
+            file_name=file_path.name,
+            file_path=str(file_path)
+        )
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Ошибка при кодировании: {str(e)}")
+
+    return HuffmanResponse(
+        encoded=encoded_data["encoded"],
+        codes=codes_list,
+        original_length=encoded_data["original_length"],
+        encoded_length=encoded_data["encoded_length"]
+    )

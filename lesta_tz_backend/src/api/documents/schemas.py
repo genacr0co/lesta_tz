@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import List
 from pydantic import ConfigDict
+from typing import Dict
 
 class UploadResponse(BaseModel):
     message: str
@@ -40,3 +41,14 @@ class PaginatedDocumentsResponse(BaseModel):
     documents: List[DocumentResponse]
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class CodeItem(BaseModel):
+    text: str
+    code: str
+
+class HuffmanResponse(BaseModel):
+    encoded: str
+    codes: List[CodeItem]
+    original_length: int
+    encoded_length: int
