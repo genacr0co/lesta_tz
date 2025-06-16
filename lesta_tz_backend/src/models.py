@@ -1,6 +1,7 @@
-from sqlalchemy import MetaData, Column, Integer, String, ForeignKey, UniqueConstraint, Float
+from sqlalchemy import MetaData, Column, Integer, String, ForeignKey, UniqueConstraint, Float, DateTime
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy.ext.declarative import declarative_base
+
 
 metadata = MetaData()
 Base = declarative_base(metadata=metadata)
@@ -70,3 +71,20 @@ class CollectionDocument(Base):
     document = relationship("Document", back_populates="collections")
 
     __table_args__ = (UniqueConstraint('collection_id', 'document_id', name='uc_collection_document'),)
+
+
+class AppMetrics(Base):
+    __tablename__ = "app_metrics"
+
+    id = Column(Integer, primary_key=True, index=True)
+    files_processed = Column(Integer, default=0)
+    min_time_processed = Column(Float, default=0.0)
+    avg_time_processed = Column(Float, default=0.0)
+    max_time_processed = Column(Float, default=0.0)
+
+    latest_file_processed_timestamp = Column(DateTime, nullable=True)
+    last_user_id = Column(Integer, nullable=True)
+    last_user_name = Column(String, nullable=True) # имя пользователя загрузиший последний файл
+    last_file_size = Column(Integer, nullable=True)  # в байтах
+    last_file_name = Column(String, nullable=True)
+    last_file_path = Column(String, nullable=True)
