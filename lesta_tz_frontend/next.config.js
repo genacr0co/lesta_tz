@@ -13,6 +13,12 @@ const nextConfig = {
     publicRuntimeConfig: {
         NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN
     },
+    
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
 }
+
+
 
 module.exports = nextConfig

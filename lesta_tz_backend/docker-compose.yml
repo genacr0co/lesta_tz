@@ -30,11 +30,6 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASS=${DB_PASS}
       - ALLOW_ORIGINS=${ALLOW_ORIGINS}
-
-      - SMTP_HOST=${SMTP_HOST}
-      - SMTP_PORT=${SMTP_PORT}
-      - SENDER_EMAIL=${SENDER_EMAIL}
-
     volumes:
       - static-data:/app/static
     depends_on:
