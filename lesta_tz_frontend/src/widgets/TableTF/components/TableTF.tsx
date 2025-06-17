@@ -12,6 +12,8 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
 export const TableTF = (props: Props) => {
 
+    
+    const [collection_id, setCollectionId] = useState<number>();
 
     const [loading, setLoading] = useState<boolean>(true);
     const [list, setList] = useState<IGetWordListItem[]>([]);
@@ -33,51 +35,55 @@ export const TableTF = (props: Props) => {
 
     const request = () => {
         setLoading(true)
+        if (collection_id !== undefined) {
+                if(document_id) {
+                    getWordList({
+                        document_id, 
+                        page,
+                        page_size,
+                        collection_id
+                    }).then(r => {
+                        if (r.status === 200) {
+                            console.log(r.data)
+                            setList(r.data.results);
+                            setTotalPages(r.data.total_pages)
+                            setTotal(r.data.total)
+                        }
+                    }).catch(e => {
+                        console.log(e)
 
-        if(document_id) {
-            getWordList({
-                document_id, 
-                page,
-                page_size
-            }).then(r => {
-                if (r.status === 200) {
-                    console.log(r.data)
-                    setList(r.data.results);
-                    setTotalPages(r.data.total_pages)
-                    setTotal(r.data.total)
+                    }).finally(() => {
+                        setLoading(false)
+                    })
                 }
-            }).catch(e => {
-                console.log(e)
-
-            }).finally(() => {
-                setLoading(false)
-            })
         }
-        
     }
 
     useEffect(() => {
+             console.log(document_id, collection_id)
         refetch()
-    }, [document_id, page_size, page])
+    }, [document_id, page_size, page, collection_id])
 
     useTrigger(TRIGGER.SELECT_DOCUMENT, (event) => {
+        console.log(event)
         setDocumentId(event.detail.document_id)
+        setCollectionId(event.detail.collection_id)
+
         setPage(1)
         setTotalPages(undefined)
     });
 
-    useTrigger(TRIGGER.DELETE_DOCUMENT, (event) => {
-        refetch()
-        setPage(1)
-        setTotalPages(undefined)
-    });
+    // useTrigger(TRIGGER.DELETE_DOCUMENT, (event) => {
+    //     refetch()
+    //     setPage(1)
+    //     setTotalPages(undefined)
+    // });
 
-    useTrigger(TRIGGER.FILE_UPLOADED, (event) => {
-        setDocumentId(event.detail.document_id)
-        setPage(1)
-        setTotalPages(undefined)
-    });
-
+    // useTrigger(TRIGGER.FILE_UPLOADED, (event) => {
+    //     setDocumentId(event.detail.document_id)
+    //     setPage(1)
+    //     setTotalPages(undefined)
+    // });
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const newSize = parseInt(event.target.value, 10);

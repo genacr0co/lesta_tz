@@ -111,9 +111,9 @@ export const ColDocList = (props: Props) => {
     });
 
  
-    // const onSelect = (document_id: number) => {
-    //     createTrigger(TRIGGER.SELECT_DOCUMENT, { document_id: document_id });
-    // }
+    const onSelect = (document_id: number,collection_id: number) => {
+        createTrigger(TRIGGER.SELECT_DOCUMENT, { document_id: document_id , collection_id: collection_id});
+    }
        
     // const delete_request = (document_id: number) => {
 
@@ -173,7 +173,7 @@ export const ColDocList = (props: Props) => {
                                     filename={item.filename}
                                     download_url={`${process.env.NEXT_PUBLIC_DOMAIN}/static/${item.filename}`}
                                     // onDeleteClick={() => delete_request(item.id) }
-                                    // onClickTitle={() => onSelect(item.id)} 
+                                    onClickTitle={() => onSelect(item.id, collection_id)} 
                                     key={item.id} title={item.filename}/>)
                                     }
                                     {loading && loaders()} 

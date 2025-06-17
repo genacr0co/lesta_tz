@@ -1,5 +1,5 @@
 export const urls = {
     getDocumentContent(document_id: number) {
-        return `/api/document/${document_id}/content`;
+        return `/api/v1/documents/${document_id}`;
     },
 };

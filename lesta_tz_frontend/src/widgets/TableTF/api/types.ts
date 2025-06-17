@@ -17,5 +17,6 @@ export interface IGetWordListParams {
     document_id: number;
     page?: number;
     page_size?: number;
+    collection_id: number;
 }
 

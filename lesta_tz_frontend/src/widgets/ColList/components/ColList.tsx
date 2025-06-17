@@ -81,10 +81,10 @@ export const ColList = (props: Props) => {
                 <div className={styles.title}>
                  
                   <div>Список коллекций</div>
-                    {   
+                    {/* {   
                      // @ts-ignore
                      <MdOutlineAddCircle size={32} />
-                    }
+                    } */}
                 </div>
                 <div className={styles.line}/>
 
