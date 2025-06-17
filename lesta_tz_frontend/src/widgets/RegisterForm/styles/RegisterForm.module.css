@@ -79,6 +79,9 @@
     background-color: #6b9bf8;
 }
 
+.disableButton {
+      background-color: #c4cad1 !important;
+}
 
 .flex {
     display: flex;
@@ -118,3 +121,8 @@
     text-decoration: underline;
        
 }
+
+.FormCheckbox {
+    margin-bottom: 16px;
+}
+

@@ -81,3 +81,8 @@ select:-webkit-autofill:focus {
 
     -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
 }
+
+.ant-checkbox-inner:checked{
+    background-color: #397af5 !important;
+    border-color: #397af5 !important;
+}
