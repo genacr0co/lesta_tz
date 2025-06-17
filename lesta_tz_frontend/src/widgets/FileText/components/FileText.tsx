@@ -73,7 +73,7 @@ export const FileText = (props: Props) => {
 
             <div style={{
                 position: "relative", 
-                width: "80%",
+                width: "50%",
                 backgroundColor: 'white',
                 borderRight: '2px solid #f4f4f4',
             }}>

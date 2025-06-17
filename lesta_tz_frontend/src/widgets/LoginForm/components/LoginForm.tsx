@@ -37,7 +37,7 @@ export const LoginForm = (props: Props) => {
                       console.log(r.data)
                         setCookie('access', r.data.access_token)
                         setCookie('refresh', r.data.refresh_token)
-                      createTrigger(TRIGGER.ALERT, {message: 'You have successfully logined', type: 'success'})
+                      createTrigger(TRIGGER.ALERT, {message: 'You have successfully logged', type: 'success'})
                       router.push('/').then(() => {})
                   }
               }).catch(e => {

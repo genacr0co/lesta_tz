@@ -1,6 +1,6 @@
 import React from "react";
 
-import {DocsList, TableTF, FileText} from '@/widgets'
+import {ColDocList, TableTF, FileText, ColList} from '@/widgets'
 import {withPrivateRoute} from "@/processes";
 
 const Home = () => {
@@ -14,9 +14,10 @@ const Home = () => {
                     flexDirection: 'row',
                     margin: '0 auto', width: '100%'
                     }}>
-                    <DocsList/>
-                    <FileText/>
-                    <TableTF/>
+                        <ColList/>
+                        <ColDocList/>
+                         <FileText/>
+                        <TableTF/>
                 </div>
             </main>
         </>
