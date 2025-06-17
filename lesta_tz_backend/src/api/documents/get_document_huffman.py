@@ -17,6 +17,7 @@ from .schemas import HuffmanResponse, CodeItem
 
 router = APIRouter()
 http_bearer = HTTPBearer()
+
 class HuffmanNode:
     def __init__(self, word=None, freq=0):
         self.word = word
