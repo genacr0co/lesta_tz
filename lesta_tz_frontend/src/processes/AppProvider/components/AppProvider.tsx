@@ -1,6 +1,8 @@
 import {QueryClient, QueryClientProvider} from "react-query";
 import {CookiesProvider} from 'react-cookie';
 
+import {ProgressLoader,AlertSystem} from "@/features";
+
 import {Props} from "../lib/props";
 
 const queryClient = new QueryClient({
@@ -22,6 +24,8 @@ export const AppProvider = (props: Props) => {
         <>
                 <CookiesProvider>
                     <QueryClientProvider client={queryClient}>
+                        <ProgressLoader/>
+                        <AlertSystem/>
                         {props.children}
                     </QueryClientProvider>
              </CookiesProvider>

@@ -6,20 +6,7 @@ import '@/shared/styles/globals.css';
 import '@/shared/assets/fonts/inter/stylesheet.css';
 
 import Head from "next/head";
-
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false,
-            refetchOnReconnect: false,
-            refetchOnMount: false,
-            retry: false,
-            staleTime: Infinity,
-            cacheTime: Infinity,
-        },
-    },
-});
-
+import {AppProvider} from "@/processes";
 
 export default function App({Component, pageProps}: AppProps) {
 
@@ -28,8 +15,8 @@ export default function App({Component, pageProps}: AppProps) {
             <title>TF IDF</title>
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
         </Head>
-        <QueryClientProvider client={queryClient}>
+        <AppProvider>
             <Component {...pageProps} />
-        </QueryClientProvider>
+        </AppProvider>
     </div>
 }

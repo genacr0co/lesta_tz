@@ -15,6 +15,5 @@ const Login = () => {
     );
 }
 
-// export default withLoginRoute(Login);
-export default Login;
+export default withLoginRoute(Login);
 

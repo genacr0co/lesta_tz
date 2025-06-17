@@ -1,90 +1,79 @@
-import { useEffect, useState, } from "react";
-import { useTrigger, createTrigger } from "trigger-man";
-import { useQuery } from "react-query";
+import { useState} from "react";
+import {createTrigger } from "trigger-man";
 import { useRouter } from 'next/router'
-
-
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 import { AuthFooter } from "@/features";
+import {useCookies} from "react-cookie";
 
-import {DocButton} from '@/shared/ui'
 import { TRIGGER } from "@/shared/const";
-
 
 import { Props } from "../lib/props";
 import styles from '../styles/LoginForm.module.css';
-import { getDocsList, deleteDocument} from "../api/services";
-import { IDocItem } from "../api/types";
-import { FcOpenedFolder } from "react-icons/fc";
+import { postlogin} from "../api/services";
+
 
 export const LoginForm = (props: Props) => {
   const router = useRouter()
-    // const [loading, setLoading] = useState<boolean>(true);
-    // const [list, setList] = useState<IDocItem[]>([]);
+      const [loading, setLoading] = useState<boolean>(false);
+      const [error, setError] = useState<boolean>(false);
+      const [email, setEmail] = useState<string>();
+      const [password, setPassword] = useState<string>();
+      const [cookies, setCookie] = useCookies();
 
-    // const { refetch } = useQuery('getDocsList', () => {
-    //     request();
-    // });
+      const request = () => {
+  
+           if (email !== undefined && 
+              password !== undefined 
+            ) {
+              setLoading(true)
+              setError(false)
+  
+              postlogin({
+                  email,
+                  password,
+              }).then(r => {
+                  if (r.status === 200) {
+                      console.log(r.data)
+                        setCookie('access', r.data.access_token)
+                        setCookie('refresh', r.data.refresh_token)
+                      createTrigger(TRIGGER.ALERT, {message: 'You have successfully logined', type: 'success'})
+                      router.push('/').then(() => {})
+                  }
+              }).catch(e => {
+                  console.log(e)
+                  setError(true)
 
-    // const request = () => {
-    //     setLoading(true)
-
-    //     getDocsList().then(r => {
-    //         if (r.status === 200) {
-    //             console.log(r.data)
-    //             setList(r.data.results);
-    //         }
-    //     }).catch(e => {
-    //         console.log(e)
-
-    //     }).finally(() => {
-    //         setLoading(false)
-    //     })
-    // }
-
-    // useEffect(() => {
-    //     refetch()
-    // }, [])
-
- 
-    // const onSelect = (document_id: number) => {
-    //     createTrigger(TRIGGER.SELECT_DOCUMENT, { document_id: document_id });
-    // }
-       
-    // const delete_request = (document_id: number) => {
-
-    //     deleteDocument({document_id}).then(r => {
-    //         if (r.status === 200) {
-    //             console.log(r.data)
-    //             createTrigger(TRIGGER.DELETE_DOCUMENT);
-    //         }
-    //     }).catch(e => {
-    //         console.log(e)
-
-    //     }).finally(() => {
-
-    //     })
-    // }
-
-    // useTrigger(TRIGGER.DELETE_DOCUMENT, (event) => {
-    //     refetch()
-    // });
-
-    // useTrigger(TRIGGER.FILE_UPLOADED, (event) => {
-    //     refetch();
-    // });
+                 if (Array.isArray(e.response.data.detail)) {
+                    for (let i = 0; i <e.response.data.detail.length; i++) {
+                        createTrigger(TRIGGER.ALERT, {message: `${e.response.data.detail[i].msg}`})
+                    }
+                 }else {
+                  createTrigger(TRIGGER.ALERT, {message: `${e.response.data.detail}`})
+                 }
+              }).finally(() => {
+                  setLoading(false)
+              })
+          }
+          else {
+              setError(true)
+          }
+      }
 
 
     return (
         <>
         <div  className={styles.FormTitle}>Login to Account</div>
-        <form className={styles.Card} onSubmit={(e) => {
+        <form className={`${error && styles.error} ${styles.Card}`} onSubmit={(e) => {
             e.preventDefault();
+            request()
         }}>
             <div className={styles.FormInput}>
                 <div className={styles.FormInputTitle}>Email</div>
-                <input
+                  <input
                     type="email"
-                    name="email"
+                    name={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
                     className={styles.FormInputBody}
                     required
@@ -93,16 +82,25 @@ export const LoginForm = (props: Props) => {
 
             <div className={styles.FormInput}>
                 <div className={styles.FormInputTitle}>Password</div>
-                <input
+                 <input
                     type="password"
-                    name="password"
+                    name={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
                     className={styles.FormInputBody}
                     required
                 />
             </div>
 
-            <button type="submit" className={styles.FormButton}>Sign in</button>
+            <button type="submit" className={styles.FormButton}>
+               {loading ? 
+                   <Spin indicator={<LoadingOutlined spin />} />
+                :
+                <div>
+                    Sign in
+                </div>
+                }
+            </button>
             </form>
             <div className={styles.Card}>
                <div className={styles.flex}>

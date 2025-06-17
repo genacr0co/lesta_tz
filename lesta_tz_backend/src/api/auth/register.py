@@ -10,15 +10,15 @@ from src.db import get_async_session
 from src.models import Users
 from src.utils import hash_password
 
-from .schemas import UserCreate
+from .schemas import UserCreate, User
 
 router = APIRouter()
 
-@router.post("/register")
+@router.post("/register", response_model=User)
 async def register(
     user_data: UserCreate,
     session: AsyncSession = Depends(get_async_session),
-) -> Union[Any]:
+) -> User:
     result = await session.execute(select(Users).where(Users.email == user_data.email))
     existing_user = result.scalar_one_or_none()
     
@@ -40,4 +40,8 @@ async def register(
     await session.commit()
     await session.refresh(new_user)
 
-    return {"id": new_user.id, "email": new_user.email, "name": new_user.name}
+    return User(
+        id=new_user.id,
+        email=new_user.email,
+        name=new_user.name,
+    )

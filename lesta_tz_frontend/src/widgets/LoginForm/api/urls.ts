@@ -1,9 +1,5 @@
 export const urls = {
-    getDocsList() {
-        return `/api/documents`;
+    postlogin() {
+        return `/api/v1/login`;
     },
-    deleteDocument(document_id: number) {
-        return `/api/document/${document_id}`;
-    },
- 
 };

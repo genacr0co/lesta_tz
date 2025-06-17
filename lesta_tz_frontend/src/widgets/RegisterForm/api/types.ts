@@ -1,17 +1,12 @@
 
-export interface IDocItem {
+export interface IRegisterRequestBody {
+    name: string;
+    email: string;
+    password: string;
+}
+
+export interface IRegisterResponseBody {
     id: number;
-    filename: string;
-}
-
-export interface IDocList {
-    results: IDocItem[];
-}
-
-export interface IDeleteDocumentParams {
-    document_id: number;
-}
-
-export interface IDeleteDocumentResponse {
-
+    email: string;
+    name: string;
 }

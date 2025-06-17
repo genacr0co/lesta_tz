@@ -1,38 +1,61 @@
 import {useRouter} from 'next/router';
-import React, {useEffect} from 'react';
 import {Cookies as ReactCookies, useCookies} from "react-cookie";
 import {createTrigger} from "trigger-man";
 import {isTokenExpired} from "@/shared/lib/helpers";
 import {postRefreshTokens} from "@/shared/api/services";
+import { useEffect, useState } from "react";
 
 // eslint-disable-next-line react/display-name
-export const withPrivateRoute = <P extends object>(Component: React.ComponentType<P>, href?: string): React.FC<P> => {
+export const withPrivateRoute = <P extends object>(
+    Component: React.ComponentType<P>,
+    href?: string
+): React.FC<P> => {
     return (props) => {
         const router = useRouter();
         const [cookies, setCookie] = useCookies();
+        const [authorized, setAuthorized] = useState(false);
+        const [checking, setChecking] = useState(true); // состояние загрузки
+
         useEffect(() => {
-            if(cookies.refresh === undefined || isTokenExpired(cookies.refresh)) {
-                router.push(href || '/')
-            }else {
-                if (cookies.access === undefined || isTokenExpired(cookies.access)) {
-                    postRefreshTokens().then((r) => {
-                        if (r.status === 200) {
-                            setCookie('access', r.data.access_token)
-                            setCookie('refresh', r.data.refresh_token)
-                        }
-                    }).catch(e => {
-                        createTrigger('alert', {message: 'Refresh Token Expired', type: 'error'})
+            const checkTokens = async () => {
+                const refresh = cookies.refresh;
+                const access = cookies.access;
 
-                        const react_cookies = new ReactCookies();
-                        react_cookies.remove('access')
-                        react_cookies.remove('refresh')
-                        router.push(href || '/').then(() => {
-                        })
-                    })
+                if (!refresh || isTokenExpired(refresh)) {
+                    router.replace(href || '/');
+                    return;
                 }
-            }
-        }, []);
 
-        return <Component {...props} />;
+                if (!access || isTokenExpired(access)) {
+                    try {
+                        const r = await postRefreshTokens();
+                        if (r.status === 200) {
+                            setCookie('access', r.data.access_token);
+                            setCookie('refresh', r.data.refresh_token);
+                            setAuthorized(true);
+                        }
+                    } catch (e) {
+                        createTrigger('alert', { message: 'Refresh Token Expired', type: 'error' });
+                        const reactCookies = new ReactCookies();
+                        reactCookies.remove('access');
+                        reactCookies.remove('refresh');
+                        router.replace(href || '/');
+                        return;
+                    }
+                } else {
+                    setAuthorized(true);
+                }
+
+                setChecking(false);
+            };
+
+            checkTokens();
+        }, [cookies, router, setCookie]);
+
+        // пока проверяется — ничего не рендерим
+        if (checking) return null;
+
+        // если проверено и авторизован — отрисовываем компонент
+        return authorized ? <Component {...props} /> : null;
     };
 };

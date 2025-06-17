@@ -1,17 +1,10 @@
 
-export interface IDocItem {
-    id: number;
-    filename: string;
+export interface ILoginRequestBody {
+    password: string;
+    email: string;
 }
 
-export interface IDocList {
-    results: IDocItem[];
-}
-
-export interface IDeleteDocumentParams {
-    document_id: number;
-}
-
-export interface IDeleteDocumentResponse {
-
+export interface ILoginResponseBody {
+    access_token: string;
+    refresh_token: string;
 }

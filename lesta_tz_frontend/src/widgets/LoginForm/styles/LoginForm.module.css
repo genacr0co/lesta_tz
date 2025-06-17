@@ -88,3 +88,12 @@
 .link:hover {
     text-decoration: underline;
 }
+
+.error input {
+       border: 1px solid #ff1818 !important;
+}
+
+.FormButton svg {
+    color: white !important;
+    opacity: 1 !important;
+}
